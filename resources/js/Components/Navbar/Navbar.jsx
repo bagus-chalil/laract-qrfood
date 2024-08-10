@@ -42,14 +42,14 @@ const Navbar = () => {
                   <li key={menu.id}>
                     <a
                       href={menu.link}
-                      className="inline-block py-4 px-4 hover:text-yellow-500"
+                      className="inline-block py-4 px-4 hover:text-blue-500"
                     >
                       {menu.name}
                     </a>
                   </li>
                 ))}
               </ul>
-              <button className="bg-gradient-to-r from-primary to-secondary hover:scale-105 duration-200 text-white py-1 px-4 rounded-full flex items-center gap-3">
+              <button className="bg-gradient-to-r from-blue-600 to-blue-800 hover:scale-105 duration-200 text-white py-1 px-4 rounded-full flex items-center gap-3">
                 <Link href="/login">
                     Pesan
                 </Link>
