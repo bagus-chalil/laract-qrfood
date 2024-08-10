@@ -36,11 +36,22 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
+        if (substr($request->no_telephone, 0, 2) == 62) {
+            $no_telephone = $request->no_telephone;
+        } elseif (substr($request->no_telephone, 0, 1) == '0') {
+            $no_telephone = '62'.substr($request->no_telephone, 1);
+        } else {
+            $no_telephone = '62'.$request->no_telephone;
+        }
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password),
+            'no_telephone' => $no_telephone,
+            'password'=>Hash::make($request->password),
         ]);
+
+        $user->assignRole('user');
 
         event(new Registered($user));
 
