@@ -7,23 +7,23 @@ const ServicesData = [
   {
     id: 1,
     img: Img2,
-    name: "Biryani",
+    name: "Makanan",
     description:
-      "Lorem ipsum dolor sit amet ipsum dolor sit ametipsum dolor sit amet ipsum dolor sit amet.",
+      "Tersedia sebanyak 5 Makanan Besar.",
   },
   {
     id: 2,
     img: Img2,
-    name: "Chiken kari",
+    name: "Snack",
     description:
-      "Lorem ipsum dolor sit amet ipsum dolor sit ametipsum dolor sit amet ipsum dolor sit amet",
+      "Tersedia sebanyak 8 Snack",
   },
   {
     id: 3,
     img: Img2,
-    name: "Cold Cofee",
+    name: "Minuman",
     description:
-      "Lorem ipsum dolor sit amet ipsum dolor sit ametipsum dolor sit amet ipsum dolor sit amet",
+      "Tersedia sebanyak 4 Minuman",
   },
 ];
 const Services = () => {
@@ -31,23 +31,25 @@ const Services = () => {
     <>
       <span id="services"></span>
       <div className="py-10">
-        <div className="container">
+        <div className="container mx-auto px-4">
           <div className="text-center mb-20 max-w-[400px] mx-auto">
-            <p className="text-sm bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary ">
-              Our Services
+            <p className="text-sm bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-blue-800 ">
+              Pilihan Kategori
             </p>
-            <h1 className="text-3xl font-bold">Services</h1>
+            <h1 className="text-3xl font-bold">Menu</h1>
+
             <p className="text-xs text-gray-400">
               Lorem ipsum dolor, sit amet consectetur adipisicing elit.
               Perspiciatis delectus architecto error nesciunt,
             </p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-14 md:gap-5 place-items-center">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-14 md:gap-10 place-items-center">
             {ServicesData.map((service) => (
               <div
                 data-aos="zoom-in"
                 data-aos-duration="300"
-                className="rounded-2xl bg-white dark:bg-gray-800 hover:bg-primary dark:hover:bg-primary hover:text-white relative shadow-xl duration-high group max-w-[300px]"
+                key={service.id}
+                className="rounded-2xl bg-white dark:bg-gray-800 hover:bg-blue-600 dark:hover:bg-blue-950 hover:text-white relative shadow-xl duration-high group max-w-[300px]"
               >
                 <div className="h-[100px]">
                   <img

@@ -8,6 +8,7 @@ export default {
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
         './resources/js/**/*.jsx',
+        './node_modules/flowbite/**/*.js',
     ],
     darkMode: "class",
     theme: {
@@ -34,5 +35,5 @@ export default {
         },
     },
 
-    plugins: [forms],
+    plugins: [forms,require('flowbite/plugin')],
 };

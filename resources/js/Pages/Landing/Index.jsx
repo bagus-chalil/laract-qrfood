@@ -9,6 +9,7 @@ import AppStore from "@/Components/AppStore/AppStore";
 import Testimonial from "@/Components/Testimonial/Testimonial";
 import Footer from "@/Components/Footer/Footer";
 import { Head } from "@inertiajs/react";
+import Map from "@/Components/Map/Map";
 
 const App = () => {
   React.useEffect(() => {
@@ -29,8 +30,9 @@ const App = () => {
       <Services />
       <Banner />
       {/* <CoverBanner /> */}
-      <AppStore />
-      <Testimonial />
+      {/* <AppStore /> */}
+      <Map />
+      {/* <Testimonial /> */}
       <Footer />
     </div>
   );

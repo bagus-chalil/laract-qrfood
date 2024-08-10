@@ -2,6 +2,7 @@ import React from "react";
 const Logo = "/assets/img/food-logo.png";
 import { FaCartShopping } from "react-icons/fa6";
 import DarkMode from "./DarkMode";
+import { Link } from "@inertiajs/react";
 
 const Menu = [
   {
@@ -29,7 +30,7 @@ const Navbar = () => {
             <div>
               <a href="#" className="font-bold text-2xl sm:text-3xl flex gap-2">
                 <img src={Logo} alt="Logo" className="w-10" />
-                Foodie
+                QRFood
               </a>
             </div>
             <div className="flex justify-between items-center gap-4">
@@ -49,7 +50,9 @@ const Navbar = () => {
                 ))}
               </ul>
               <button className="bg-gradient-to-r from-primary to-secondary hover:scale-105 duration-200 text-white py-1 px-4 rounded-full flex items-center gap-3">
-                Order
+                <Link href="/login">
+                    Pesan
+                </Link>
                 <FaCartShopping className="text-xl text-white drop-shadow-sm cursor-pointer" />
               </button>
             </div>

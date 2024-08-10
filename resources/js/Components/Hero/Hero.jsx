@@ -2,7 +2,7 @@ import React from "react";
 const BiryaniImg1 = "/assets/img/biryani3.png";
 const BiryaniImg2 = "/assets/img/biryani5.png";
 const BiryaniImg3 = "/assets/img/biryani2.png";
-const Vector = "/assets/img/vector3.png";
+const Vector = "/assets/img/pattern_react.png";
 
 const ImageList = [
   {
@@ -47,18 +47,18 @@ const Hero = () => {
               className="flex flex-col justify-center gap-4 pt-12 sm:pt-0 text-center sm:text-left order-2 sm:order-1"
             >
               <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold">
-                Welcome{" "}
-                <span class="bg-clip-text text-transparent bg-gradient-to-b from-primary to-secondary">
-                  Foodie
+                Tasyakuran HUT {" "}
+                <span className="bg-clip-text text-transparent bg-gradient-to-b from-blue-600 to-blue-800">
+                  Kimia Farma
                 </span>{" "}
-                Zone
+                ke-53
               </h1>
               <p className="text-sm ">
                 Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eaque
                 reiciendis inventore iste ratione ex alias quis magni at optio
               </p>
               <div>
-                <button className="bg-gradient-to-r from-primary to-secondary hover:scale-105 duration-200 text-white py-2 px-4 rounded-full">
+                <button className="bg-gradient-to-r from-blue-600 to-blue-800 hover:scale-105 duration-200 text-white py-2 px-4 rounded-full">
                   Order Now
                 </button>
               </div>
@@ -76,12 +76,13 @@ const Hero = () => {
                 />
               </div>
               <div className="flex lg:flex-col lg:top-1/2 lg:-translate-y-1/2 lg:py-2 justify-center gap-4 absolute bottom-[0px] lg:-right-10 bg-white/30 rounded-full">
-                {ImageList.map((item) => (
+                {ImageList.map((item,index) => (
                   <img
                     data-aos="zoom-in"
                     data-aos-duration="400"
                     data-aos-once="true"
                     src={item.img}
+                    key={index}
                     onClick={() => {
                       setImageId(
                         item.id === 1
