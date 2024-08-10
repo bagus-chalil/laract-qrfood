@@ -15,10 +15,6 @@ Route::get('/', function () {
 });
 
 Route::get('/landing', function () {
-    return Inertia::render('Landing/Landing');
-})->name('landing');
-
-Route::get('/index', function () {
     return Inertia::render('Landing/Index');
 })->name('landing');
 
