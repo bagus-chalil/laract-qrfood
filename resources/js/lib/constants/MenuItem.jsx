@@ -25,18 +25,17 @@ const MenuItem = ({ item }) => {
 }
 
 function SidebarLink({ link }) {
-    const { url } = usePage();
+    const { url, component } = usePage();
 
     return (
         <Link
             href={link.path}
-            className={classNames(url === link.path ? 'bg-blue-950 text-white' : 'text-neutral-900', linkClass)}
+            className={classNames(url.startsWith(link.path) ? 'bg-blue-950 text-white' : 'text-neutral-900', linkClass)}
         >
             <span className="text-xl">{link.icon}</span>
              {link.label}
         </Link>
     )
 }
-
 
 export default MenuItem;

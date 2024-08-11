@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\Menu;
+use App\Http\Controllers\MenuController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Foundation\Application;
@@ -28,9 +31,21 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return Inertia::render('Admin/Dashboard/Index');
     })->name('dashboard');
 
-    Route::prefix('users/')->group(function () {
+    //Users
+    Route::prefix('/users/')->group(function () {
         Route::get('',[UsersController::class,'index']);
     });
+
+    //Category
+    Route::prefix('/category/')->group(function () {
+        Route::get('',[CategoryController::class,'index']);
+    });
+
+    //menu
+    Route::prefix('menu/')->group(function () {
+        Route::get('',[MenuController::class,'index']);
+    });
+
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

@@ -1,4 +1,4 @@
-import { FaInstalod, FaUserGroup } from "react-icons/fa6";
+import { FaInstalod, FaSwatchbook, FaUserGroup } from "react-icons/fa6";
 
 export const SIDEBAR_ITEMS = [
     {
@@ -12,5 +12,17 @@ export const SIDEBAR_ITEMS = [
         path: '/users',
         icon: <FaUserGroup />,
         label: 'Users',
+    },
+    {
+        key: 'category',
+        path: '/category',
+        icon: <FaSwatchbook />,
+        label: 'Category',
+    },
+    {
+        key: 'menu',
+        path: '/menu',
+        icon: <FaSwatchbook />,
+        label: 'Menu',
     },
   ];
