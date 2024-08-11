@@ -39,11 +39,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
     //Category
     Route::prefix('/category/')->group(function () {
         Route::get('',[CategoryController::class,'index']);
+        Route::post('insert',[CategoryController::class,'store']);
+        Route::post('update/{id}',[CategoryController::class,'update']);
+        Route::delete('destroy',[CategoryController::class,'destroy']);
     });
 
     //menu
     Route::prefix('menu/')->group(function () {
         Route::get('',[MenuController::class,'index']);
+        Route::post('',[MenuController::class,'index']);
     });
 
 

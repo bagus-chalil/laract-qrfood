@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -16,7 +17,7 @@ class CategoryController extends Controller
     {
         $categories = Category::search($request->search)->paginate($request->filter ?? 10)->appends('query',null)->withQueryString();
 
-        return Inertia::render('Admin/Category/Index',['category' => $categories]);
+        return Inertia::render('Admin/Category/Index',['category' => $categories,'sessions' => session()->all()]);
     }
 
     /**
@@ -30,9 +31,14 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
-        //
+        Category::create([
+            'name' => $request->name,
+            'description' => $request->description,
+        ]);
+
+        return redirect(url('category'))->with('message', 'Data Berhasil ditambahkan !');
     }
 
     /**
@@ -54,16 +60,23 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, $id)
     {
-        //
+        Category::find($id)->update([
+            'name' => $request->name,
+            'description' => $request->description,
+        ]);
+
+        return redirect(url('category'))->with('message', 'Data Berhasil diperbarui !');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Category $category)
+    public function destroy(Request $request)
     {
-        //
+        Category::destroy($request->id);
+
+        return redirect(url('category'))->with('message', 'Data Berhasil dihapus !');
     }
 }
