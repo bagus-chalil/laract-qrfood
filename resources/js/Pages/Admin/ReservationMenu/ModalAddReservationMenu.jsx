@@ -28,26 +28,35 @@ export default function ModalAddReservationMenu({ open, onClose, data, category,
         }
     };
 
+    const handleClose = () => {
+        onClose();
+        setImagePreview(null);
+    };
+
     return (
-        <Modal show={open} onClose={onClose}>
+        <Modal show={open} onClose={handleClose}>
             <div className="w-full rounded-lg p-4">
                 <h1 className='text-lg font-semibold'>Tambah Menu</h1><hr />
                 <div className='m-2 pt-4'>
                     <form onSubmit={submit}>
                         {/* Kategori */}
                         <div className="mt-4">
-                            <InputLabel htmlFor="CategoryId" value="CategoryId" />
+                            <InputLabel htmlFor="categoryId" value="CategoryId" />
 
                             <select
                                 name="categoryId"
                                 id="categoryId"
+                                value={data.categoryId}
                                 onChange={(e) => setData('categoryId', e.target.value)}
                                 className='rounded-lg mt-1 block w-full'>
-                                <option selected disabled>Silahkan Pilih</option>
+                                <option value="" disabled>Select a category</option> {/* Default option */}
                                 {category.map((item) => (
-                                    <option key={item.id} value={item.id}>{item.name}</option>
+                                    <option key={item.id} value={item.id}>
+                                        {item.name}
+                                    </option>
                                 ))}
                             </select>
+
 
                             <InputError message={errors.categoryId} className="mt-2" />
                         </div>
@@ -87,31 +96,19 @@ export default function ModalAddReservationMenu({ open, onClose, data, category,
 
                         {/* Upload Image */}
                         <div className='mt-4'>
-                            <InputLabel htmlFor="Image" value="Image" />
+                            <InputLabel htmlFor="image" value="Image" />
 
-                            <div className="flex items-center justify-center w-full">
-                                <label htmlFor="dropzone-file" className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
-                                    <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                                        <svg className="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
-                                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
-                                        </svg>
-                                        <p className="mb-2 text-sm text-gray-500 dark:text-gray-400"><span className="font-semibold">Click to upload</span> or drag and drop</p>
-                                        <p className="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
-                                    </div>
-                                    <input
-                                        id="dropzone-file"
-                                        name='image'
-                                        type="file"
-                                        onChange={handleFileChange}
-                                        className="hidden"
-                                    />
-                                </label>
-                            </div>
+                            <input
+                                className="block w-full mb-5 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                                id="image"
+                                name='image'
+                                type="file"
+                                onChange={handleFileChange} />
 
                             {/* Display image preview */}
                             {imagePreview && (
                                 <div className="mt-4">
-                                    <img src={imagePreview} alt="Image Preview" className="w-full h-64 object-cover rounded-lg"/>
+                                    <img src={imagePreview} alt="Image Preview" className="w-full h-64 object-cover rounded-lg" />
                                 </div>
                             )}
                         </div>

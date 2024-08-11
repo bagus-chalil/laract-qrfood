@@ -53,6 +53,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::delete('destroy',[ReservationMenuController::class,'destroy']);
     });
 
+    //menu
+    Route::prefix('qr/')->group(function () {
+        Route::get('scanner',[ReservationMenuController::class,'index']);
+        Route::post('insert',[ReservationMenuController::class,'store']);
+        Route::post('update/{id}',[ReservationMenuController::class,'update']);
+        Route::delete('destroy',[ReservationMenuController::class,'destroy']);
+    });
+
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
