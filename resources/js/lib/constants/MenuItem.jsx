@@ -29,7 +29,7 @@ function SidebarLink({ link }) {
 
     return (
         <Link
-            href={link.path} // Pastikan menggunakan href, bukan to
+            href={link.path}
             className={classNames(url === link.path ? 'bg-blue-950 text-white' : 'text-neutral-900', linkClass)}
         >
             <span className="text-xl">{link.icon}</span>
