@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -11,9 +12,9 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $categories = Category::paginate(5);
+        $categories = Category::search($request->search)->paginate($request->filter ?? 10)->appends('query',null)->withQueryString();
 
         return Inertia::render('Admin/Category/Index',['category' => $categories]);
     }
