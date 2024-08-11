@@ -23,7 +23,6 @@ const QRCodeScanner = ({ auth }) => {
 
         const startScanning = async () => {
             try {
-                // Check if camera access is supported
                 const stream = await navigator.mediaDevices.getUserMedia({ video: true });
                 if (stream) {
                     html5QrCode.start(
@@ -54,12 +53,23 @@ const QRCodeScanner = ({ auth }) => {
     return (
         <AdminLayout auth={auth}>
             <Head title="QR Code Scanner" />
-            <div className="container">
-                <div id="reader" style={{ width: '600px' }}></div>
-                <input type="text" id="booking_code" name="booking_code" disabled />
-                <a href="/qrcode/scan" style={{ display: 'block', textAlign: 'center', marginTop: '20px' }}>
-                    Back
-                </a>
+            <div className="container mx-auto px-4 py-8">
+                <div className="max-w-lg mx-auto bg-white rounded-lg shadow-md p-6">
+                    <div id="reader" className="w-full h-64 bg-gray-100 border border-gray-300 rounded-lg mb-4"></div>
+                    <input
+                        type="text"
+                        id="booking_code"
+                        name="booking_code"
+                        className="w-full p-2 border border-gray-300 rounded-lg"
+                        disabled
+                    />
+                    <a
+                        href="/qrcode/scan"
+                        className="block text-center mt-4 text-blue-600 hover:underline"
+                    >
+                        Back
+                    </a>
+                </div>
             </div>
         </AdminLayout>
     );

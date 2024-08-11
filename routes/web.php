@@ -33,6 +33,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return Inertia::render('Admin/Dashboard/Index');
     })->name('dashboard');
 
+    Route::get('view-scan', function () {
+        return view('scanqr');
+    })->name('dashboard');
+
     //Users
     Route::prefix('users/')->group(function () {
         Route::get('',[UsersController::class,'index']);
