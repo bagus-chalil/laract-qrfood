@@ -1,4 +1,5 @@
 import MenuItem from '@/lib/constants/MenuItem';
+import { SIDEBAR_ITEMS } from '@/lib/constants/SidebarItem';
 import React, { useState } from 'react';
 
 
@@ -8,47 +9,6 @@ const Sidebar = () => {
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
-
-  const menuItems = [
-    {
-      href: '#',
-      icon: (
-        <path
-          d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z"
-        />
-      ),
-      label: 'Dashboard',
-    },
-    {
-      href: '#',
-      icon: (
-        <path
-          d="M6.143 0H1.857A1.857 1.857 0 0 0 0 1.857v4.286C0 7.169.831 8 1.857 8h4.286A1.857 1.857 0 0 0 8 6.143V1.857A1.857 1.857 0 0 0 6.143 0Zm10 0h-4.286A1.857 1.857 0 0 0 10 1.857v4.286C10 7.169 10.831 8 11.857 8h4.286A1.857 1.857 0 0 0 18 6.143V1.857A1.857 1.857 0 0 0 16.143 0Zm-10 10H1.857A1.857 1.857 0 0 0 0 11.857v4.286C0 17.169.831 18 1.857 18h4.286A1.857 1.857 0 0 0 8 16.143v-4.286A1.857 1.857 0 0 0 6.143 10Zm10 0h-4.286A1.857 1.857 0 0 0 10 11.857v4.286c0 1.026.831 1.857 1.857 1.857h4.286A1.857 1.857 0 0 0 18 16.143v-4.286A1.857 1.857 0 0 0 16.143 10Z"
-        />
-      ),
-      label: 'Kanban',
-      badge: 'Pro',
-    },
-    {
-      href: '#',
-      icon: (
-        <path
-          d="m17.418 3.623-.018-.008a6.713 6.713 0 0 0-2.4-.569V2h1a1 1 0 1 0 0-2h-2a1 1 0 0 0-1 1v2H9.89A6.977 6.977 0 0 1 12 8v5h-2V8A5 5 0 1 0 0 8v6a1 1 0 0 0 1 1h1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-2h6v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-2h1a1 1 0 0 0 1-1V8.208c.099-.299.174-.605.209-.918a7.036 7.036 0 0 0 2.000-1.666v-.001a1.35 1.35 0 0 0 .016-1.032Z"
-        />
-      ),
-      label: 'Inbox',
-      badge: '3',
-    },
-    {
-      href: '#',
-      icon: (
-        <path
-          d="M12 2a6 6 0 0 0-6 6v8a6 6 0 0 0 6 6 6 6 0 0 0 6-6V8a6 6 0 0 0-6-6Zm1 12h-2v-2h2v2Zm0-4h-2V7h2v3Z"
-        />
-      ),
-      label: 'Help',
-    },
-  ];
 
   return (
     <>
@@ -82,14 +42,8 @@ const Sidebar = () => {
             </svg>
           </button>
           <ul className="space-y-2 font-medium">
-            {menuItems.map((item, index) => (
-              <MenuItem
-                key={index}
-                href={item.href}
-                icon={item.icon}
-                label={item.label}
-                badge={item.badge}
-              />
+            {SIDEBAR_ITEMS.map((item, index) => (
+              <MenuItem key={index} item={item} />
             ))}
           </ul>
         </div>

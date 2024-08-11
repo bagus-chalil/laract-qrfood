@@ -5,7 +5,7 @@ export default function Dashboard({ auth }) {
     return (
         <AdminLayout auth={auth}>
             <Head title="Dashboard" />
-            <div>Dashboard</div>
+            <div>Users</div>
         </AdminLayout>
     );
 }
