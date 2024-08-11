@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
-use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -17,7 +16,7 @@ class CategoryController extends Controller
     {
         $categories = Category::search($request->search)->paginate($request->filter ?? 10)->appends('query',null)->withQueryString();
 
-        return Inertia::render('Admin/Category/Index',['category' => $categories,'sessions' => session()->all()]);
+        return Inertia::render('Admin/Category/Category',['category' => $categories,'sessions' => session()->all()]);
     }
 
     /**

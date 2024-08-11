@@ -2,22 +2,25 @@ import Modal from '@/Components/Modal';
 import { Link, router, useForm, usePage } from '@inertiajs/react';
 import { useRef, useState } from 'react';
 import { FaRegTrashCan } from 'react-icons/fa6';
-import ModalDeleteCategory from './ModalDeleteCategory';
-import ModalEditCategory from './ModalEditCategory';
+import ModalDeleteReservationMenu from './ModalDeleteReservationMenu';
+import ModalEditReservationMenu from './ModalEditReservationMenu';
 
-
-export default function TableCategory({ category }) {
+export default function TableReservationMenu({ reservationMenu, category }) {
     const [isLoading, setIsLoading] = useState(false);
     const [openDeleteModal, setOpenDeleteModal] = useState(false);
     const [openEditModal, setOpenEditModal] = useState(false);
-    const [selectedCategory, setSelectedCategory] = useState(null);
-    const filter = useRef(category.per_page);
+    const [selectedReservationMenu, setReservationMenu] = useState(null);
+    const filter = useRef(reservationMenu.per_page);
     const { url } = usePage();
     const willDelete = useRef();
     const [search, setSearch] = useState("");
     const { data, setData, errors, post, reset } = useForm({
         name: '',
-        description: ''
+        categoryId: '',
+        description: '',
+        image: null,
+        limit: '',
+        quota: ''
     });
 
     const handleChangeFilter = (e) => {
@@ -51,25 +54,41 @@ export default function TableCategory({ category }) {
         setOpenDeleteModal(true);
     };
 
-    const editCategory = (category) => {
-        setSelectedCategory(category);
+    const editReservationMenu = (reservationMenu) => {
+        setReservationMenu(reservationMenu);
         setData({
-            name: category.name,
-            description: category.description
+            name: reservationMenu.name,
+            categoryId: reservationMenu.category.id,
+            description: reservationMenu.description,
+            image: null,
+            limit: reservationMenu.limit,
+            quota: reservationMenu.quota
         });
         setOpenEditModal(true);
     };
 
     const submitEdit = (e) => {
         e.preventDefault();
-        post(`/category/update/${selectedCategory.id}`, {
+        const formData = new FormData();
+        formData.append('name', data.name);
+        formData.append('categoryId', data.categoryId);
+        formData.append('description', data.description);
+        formData.append('limit', data.limit);
+        formData.append('quota', data.quota);
+        if (data.image) formData.append('image', data.image);
+
+        post(`/reservation-menu/update/${selectedReservationMenu.id}`, {
+            data: formData,
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
             onSuccess: () => {
                 setOpenEditModal(false);
                 getData();
                 reset();
             },
-            onError: () => {
-                // Handle error
+            onError: (errors) => {
+                console.error('Error updating data:', errors);
             }
         });
     };
@@ -127,7 +146,11 @@ export default function TableCategory({ category }) {
                     <tr>
                         <th scope="col" className="px-6">#</th>
                         <th scope="col" className="px-6 py-3">Nama</th>
+                        <th scope="col" className="px-6 py-3">Kategori</th>
                         <th scope="col" className="px-6 py-3">Deskripsi</th>
+                        <th scope="col" className="px-6 py-3">Image</th>
+                        <th scope="col" className="px-6 py-3">Limit</th>
+                        <th scope="col" className="px-6 py-3">Quota</th>
                         <th scope="col" className="px-6 py-3">Aksi</th>
                     </tr>
                 </thead>
@@ -137,16 +160,30 @@ export default function TableCategory({ category }) {
                             <td>Loading..</td>
                         </tr>
                     ) : (
-                        category.data.map((item, index) => (
+                        reservationMenu.data.map((item, index) => (
                             <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600" key={item.id}>
-                                <td className="px-6 py-4">{category.from + index}</td>
+                                <td className="px-6 py-4">{reservationMenu.from + index}</td>
                                 <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     {item.name}
                                 </th>
+                                <td className="px-6 py-4">{item.category.name}</td>
                                 <td className="px-6 py-4">{item.description}</td>
+                                <td className="px-6 py-4">
+                                    {item.image ? (
+                                        <img
+                                            src={`/storage/${item.image}`}
+                                            alt={item.name}
+                                            className="h-16 w-16 object-cover rounded"
+                                        />
+                                    ) : (
+                                        <span>No Image Available</span>
+                                    )}
+                                </td>
+                                <td className="px-6 py-4">{item.limit}</td>
+                                <td className="px-6 py-4">{item.quota}</td>
                                 <td className="px-6 py-4 text-left rtl:text-center">
                                     <div className="flex items-center gap-2 rounded">
-                                        <button onClick={() => editCategory(item)} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</button>
+                                        <button onClick={() => editReservationMenu(item)} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</button>
                                         <button className='bg-red-400 text-white p-1 rounded' onClick={() => confirmDelete(item.id)}>
                                             <FaRegTrashCan />
                                         </button>
@@ -159,9 +196,9 @@ export default function TableCategory({ category }) {
             </table>
 
             <div className="flex flex-col sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4 m-4">
-                <div>Showing {category.from} to {category.to} total {category.total}</div>
+            <div>Showing {reservationMenu.from} to {reservationMenu.to} of {reservationMenu.total} results</div>
                 <div className='flex items-center gap-2'>
-                    {category.links.map((link, index) => (
+                    {reservationMenu.links.map((link, index) => (
                         <Link
                             href={link.url}
                             key={index}
@@ -174,23 +211,33 @@ export default function TableCategory({ category }) {
                 </div>
             </div>
 
-            <ModalDeleteCategory
-                open={openDeleteModal}
-                onClose={() => setOpenDeleteModal(false)}
-                onDelete={() => {
-                    setOpenDeleteModal(false);
-                    getData();
-                }}
-                willDelete={willDelete.current}
-            />
+            {/* Modal for Edit */}
+            {openEditModal && (
+                <ModalEditReservationMenu
+                    open={openEditModal}
+                    onClose={() => setOpenEditModal(false)}
+                    data={data}
+                    category={category}
+                    setData={setData}
+                    submit={submitEdit}
+                    processing={false}  // Set to true if you have processing state
+                    errors={errors}
+                />
+            )}
 
-            <ModalEditCategory
-                open={openEditModal}
-                onClose={() => setOpenEditModal(false)}
-                data={data}
-                setData={setData}
-                submitEdit={submitEdit}
-            />
+            {/* Modal for Delete */}
+            {openDeleteModal && (
+                <ModalDeleteReservationMenu
+                    open={openDeleteModal}
+                    onClose={() => setOpenDeleteModal(false)}
+                    onDelete={() => {
+                        setOpenDeleteModal(false);
+                        getData();
+                    }}
+                    willDelete={willDelete.current}
+                />
+            )}
         </>
     );
 }
+

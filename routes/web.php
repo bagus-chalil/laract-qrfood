@@ -2,9 +2,10 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Menu;
-use App\Http\Controllers\MenuController;
+use App\Http\Controllers\ReservationMenuController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UsersController;
+use App\Models\ReservationMenu;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -23,21 +24,21 @@ Route::get('/', function () {
 })->name('landing');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/home', function () {
+    Route::get('home', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
 
-    Route::get('/dashboard', function () {
+    Route::get('dashboard', function () {
         return Inertia::render('Admin/Dashboard/Index');
     })->name('dashboard');
 
     //Users
-    Route::prefix('/users/')->group(function () {
+    Route::prefix('users/')->group(function () {
         Route::get('',[UsersController::class,'index']);
     });
 
     //Category
-    Route::prefix('/category/')->group(function () {
+    Route::prefix('category/')->group(function () {
         Route::get('',[CategoryController::class,'index']);
         Route::post('insert',[CategoryController::class,'store']);
         Route::post('update/{id}',[CategoryController::class,'update']);
@@ -45,9 +46,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 
     //menu
-    Route::prefix('menu/')->group(function () {
-        Route::get('',[MenuController::class,'index']);
-        Route::post('',[MenuController::class,'index']);
+    Route::prefix('reservation-menu/')->group(function () {
+        Route::get('',[ReservationMenuController::class,'index']);
+        Route::post('insert',[ReservationMenuController::class,'store']);
+        Route::post('update/{id}',[ReservationMenuController::class,'update']);
+        Route::delete('destroy',[ReservationMenuController::class,'destroy']);
     });
 
 

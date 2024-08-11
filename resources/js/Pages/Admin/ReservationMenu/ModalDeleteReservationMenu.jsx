@@ -1,7 +1,7 @@
 import Modal from '@/Components/Modal';
 import { Link } from '@inertiajs/react';
 
-export default function ModalDelete({ open, onClose, onDelete, willDelete }) {
+export default function ModalDeleteReservationMenu({ open, onClose, onDelete, willDelete }) {
     return (
         <Modal show={open} onClose={onClose}>
             <div className="py-4 rounded-lg">
@@ -16,7 +16,7 @@ export default function ModalDelete({ open, onClose, onDelete, willDelete }) {
                         preserveScroll
                         preserveState
                         method='delete'
-                        href="/category/destroy"
+                        href="/reservation-menu/destroy"
                         data={{ id: willDelete }}
                         onSuccess={onDelete}
                         className='bg-red-400 py-1 px-2 rounded-lg text-white'>

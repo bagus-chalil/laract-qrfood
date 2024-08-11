@@ -1,6 +1,6 @@
 import Modal from "@/Components/Modal";
 
-export default function ModalEdit({ open, onClose, data, setData, submitEdit }) {
+export default function ModalEditCategory({ open, onClose, data, setData, submitEdit }) {
     return (
         <Modal show={open} onClose={onClose}>
             <div className="w-full rounded-lg p-4">
