@@ -1,4 +1,4 @@
-import { FaBellConcierge, FaInstalod, FaSwatchbook, FaUserGroup } from "react-icons/fa6";
+import { FaBellConcierge, FaInstalod, FaQrcode, FaSwatchbook, FaUserGroup } from "react-icons/fa6";
 
 export const SIDEBAR_ITEMS = [
     {
@@ -24,5 +24,11 @@ export const SIDEBAR_ITEMS = [
         path: '/reservation-menu',
         icon: <FaBellConcierge />,
         label: 'Reservation Menu',
+    },
+    {
+        key: 'qr',
+        path: '/qr/scanner',
+        icon: <FaQrcode />,
+        label: 'QR Scanner',
     },
   ];
