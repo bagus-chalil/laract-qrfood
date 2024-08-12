@@ -30,6 +30,9 @@ Route::prefix('order/')->group(function () {
     Route::get('{kode_referal}', [OrderFoodController::class, 'index'])->name('order');
     Route::post('insert', [OrderFoodController::class, 'store']);
 });
+Route::get('QR/Show/{kode_transaction}', [QRController::class, 'show']);
+Route::get('/qrcode/{code}', [QRController::class, 'generateQRCode']);
+
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/route', [RouteController::class, 'index'])->name('route');

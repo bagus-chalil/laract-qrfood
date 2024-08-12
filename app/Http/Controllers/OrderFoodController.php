@@ -35,7 +35,7 @@ class OrderFoodController extends Controller
         $reservationMenu = ReservationMenu::all();
         $transactions = Orders::with('transaction','reservation_menu.category')->where('referal_code', $referal_code)->get();
 
-        return Inertia::render('OrderFood/OrderFood',[
+        return Inertia::render('User/Order/Order',[
             'transactions' => $transactions,
             'reservationMenu' => $reservationMenu,
             'kode_referal' => $referal_code,

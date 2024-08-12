@@ -1,4 +1,3 @@
-// src/components/MainLayout.jsx
 import Alert from '@/Components/Alert';
 import Header from '@/Components/shared/Header';
 import Sidebar from '@/Components/shared/Sidebar';

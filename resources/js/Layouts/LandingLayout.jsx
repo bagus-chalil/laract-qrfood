@@ -5,9 +5,8 @@ import Navbar from "@/Components/Navbar/Navbar";
 import Hero from "@/Components/Hero/Hero";
 import Footer from "@/Components/Footer/Footer";
 import { Head } from "@inertiajs/react";
-import Order from "@/Components/Order/Order";
 
-const OrderFood = ({transactions, reservationMenu, kode_referal}) => {
+const LandingLayout = ({ children }) => {
 
   React.useEffect(() => {
     AOS.init({
@@ -21,13 +20,15 @@ const OrderFood = ({transactions, reservationMenu, kode_referal}) => {
 
   return (
     <div className="bg-white dark:bg-gray-900 dark:text-white duration-200">
-      <Head title="QRFood" />
+      <Head title="Pemesanan" />
       <Navbar />
       <Hero />
-      <Order transactions={transactions} reservationMenu={reservationMenu} kode_referal={kode_referal}/>
+      <div>
+        {children}
+      </div>
       <Footer />
     </div>
   );
 };
 
-export default OrderFood;
+export default LandingLayout;
