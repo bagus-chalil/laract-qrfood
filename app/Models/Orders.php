@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Transaction;
+use App\Models\ReservationMenu;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Orders extends Model
 {
@@ -11,4 +13,14 @@ class Orders extends Model
 
     protected $guarded = [];
     protected $table = 'orders';
+
+    public function transaction()
+    {
+        return $this->hasOne(Transaction::class,'order_id','id');
+    }
+
+    public function reservation_menu()
+    {
+        return $this->hasOne(ReservationMenu::class,'id','reservation_menu_id');
+    }
 }

@@ -28,15 +28,15 @@ class OrderFoodController extends Controller
         if (empty($is_valid_referal)) {
             return redirect()->route('landing')->with('alert', [
                 'type' => 'error',
-                'message' => 'Invalid referral code!',
+                'message' => 'Kode Referal tidak ada!',
             ]);
         }
 
-        $categories = Category::all();
         $reservationMenu = ReservationMenu::all();
+        $transactions = Orders::with('transaction','reservation_menu.category')->where('referal_code', $referal_code)->get();
 
         return Inertia::render('OrderFood/OrderFood',[
-            'categories' => $categories,
+            'transactions' => $transactions,
             'reservationMenu' => $reservationMenu,
             'kode_referal' => $referal_code,
         ]);
@@ -85,7 +85,7 @@ class OrderFoodController extends Controller
         } else {
             return redirect()->route('landing')->with('alert', [
                 'type' => 'error',
-                'message' => 'Invalid referral code!',
+                'message' => 'Kode Referal telah digunakan!',
             ]);
         }
     }

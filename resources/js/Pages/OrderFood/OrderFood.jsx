@@ -7,7 +7,7 @@ import Footer from "@/Components/Footer/Footer";
 import { Head } from "@inertiajs/react";
 import Order from "@/Components/Order/Order";
 
-const OrderFood = ({categories, reservationMenu, kode_referal}) => {
+const OrderFood = ({transactions, reservationMenu, kode_referal}) => {
 
   React.useEffect(() => {
     AOS.init({
@@ -24,7 +24,7 @@ const OrderFood = ({categories, reservationMenu, kode_referal}) => {
       <Head title="QRFood" />
       <Navbar />
       <Hero />
-      <Order categories={categories} reservationMenu={reservationMenu} kode_referal={kode_referal}/>
+      <Order transactions={transactions} reservationMenu={reservationMenu} kode_referal={kode_referal}/>
       <Footer />
     </div>
   );
