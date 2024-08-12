@@ -32,7 +32,7 @@ function SidebarLink({ link }) {
             href={link.path}
             className={classNames(url.startsWith(link.path) ? 'bg-blue-950 text-white' : 'text-neutral-900', linkClass)}
         >
-            <span className="text-xl">{link.icon}</span>
+            {/* <span className="text-xl">{link.icon}</span> */}
              {link.label}
         </Link>
     )

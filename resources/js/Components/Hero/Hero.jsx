@@ -33,6 +33,7 @@ const Hero = () => {
 
   return (
     <>
+      <span id="home"></span>
       <div
         className="min-h-[550px] sm:min-h-[600px] bg-gray-100 flex justify-center items-center dark:bg-gray-950 dark:text-white duration-200"
         style={bgImage}

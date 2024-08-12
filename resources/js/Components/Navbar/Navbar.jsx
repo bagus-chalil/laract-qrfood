@@ -2,13 +2,13 @@ import React from "react";
 const Logo = "/assets/img/food-logo.png";
 import { FaCartShopping } from "react-icons/fa6";
 import DarkMode from "./DarkMode";
-import { Link } from "@inertiajs/react";
+import { Link, usePage } from "@inertiajs/react";
 
 const Menu = [
   {
     id: 1,
     name: "Home",
-    link: "/#",
+    link: "/#home",
   },
   {
     id: 2,
@@ -17,11 +17,18 @@ const Menu = [
   },
   {
     id: 3,
-    name: "About",
-    link: "/#about",
+    name: "Alur Pemesanan",
+    link: "/#flow",
+  },
+  {
+    id: 4,
+    name: "Pemesanan",
+    link: "/order",
   },
 ];
 const Navbar = () => {
+    const { auth } = usePage().props;
+
   return (
     <>
       <div className="shadow-md bg-white dark:bg-gray-900 dark:text-white duration-200">
@@ -50,9 +57,15 @@ const Navbar = () => {
                 ))}
               </ul>
               <button className="bg-gradient-to-r from-blue-600 to-blue-800 hover:scale-105 duration-200 text-white py-1 px-4 rounded-full flex items-center gap-3">
-                <Link href="/login">
-                    Pesan
-                </Link>
+                {!auth.user ? (
+                    <Link href="/login">Pesan</Link>
+                ) : (
+                    auth.user.roles.includes("Admin") ? (
+                    <Link href="/dashboard">Pesan</Link>
+                    ) : (
+                    <Link href="/home">Pesan</Link>
+                    )
+                )}
                 <FaCartShopping className="text-xl text-white drop-shadow-sm cursor-pointer" />
               </button>
             </div>

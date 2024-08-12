@@ -19,6 +19,7 @@ const Banner = () => {
 
   return (
     <>
+      <span id="flow"></span>
       <div className="min-h-[550px] mt-11">
         <div className="min-h-[550px] flex justify-center items-center backdrop-blur-xl py-12 sm:py-0 ">
           <div
