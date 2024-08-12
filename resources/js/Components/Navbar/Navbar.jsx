@@ -20,11 +20,6 @@ const Menu = [
     name: "Alur Pemesanan",
     link: "/#flow",
   },
-  {
-    id: 4,
-    name: "Pemesanan",
-    link: "/order",
-  },
 ];
 const Navbar = () => {
     const { auth } = usePage().props;

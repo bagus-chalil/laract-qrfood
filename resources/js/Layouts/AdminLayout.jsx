@@ -1,4 +1,5 @@
 // src/components/MainLayout.jsx
+import Alert from '@/Components/Alert';
 import Header from '@/Components/shared/Header';
 import Sidebar from '@/Components/shared/Sidebar';
 import React from 'react';
@@ -6,6 +7,7 @@ import React from 'react';
 
 const MainLayout = ({ children }) => (
   <div>
+    <Alert />
     <Header />
     <Sidebar />
     <div className="p-4 sm:ml-64 min-h-screen">

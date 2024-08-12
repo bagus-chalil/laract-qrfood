@@ -34,13 +34,74 @@ class ReservationMenuController extends Controller
     {
         if (!empty($request->image)) {
             $row_image = $request->image;
+            $originalImagePath = $row_image->getPathname();
+            $originalImageExtension = $row_image->getClientOriginalExtension();
+
+            // Tentukan ukuran gambar yang diinginkan
+            $newWidth = 600;
+            $newHeight = 400;
+
+            // Buat nama file yang akan disimpan
             $detail_image = [
-                'path' => 'reservation-menu/', // Remove /public/ as storeAs will handle this.
-                'nama_file' => 'menu-' . rand(10, 10000) . '-' . strtotime(date('Y-m-d h:s')) . '.' . $row_image->getClientOriginalExtension(),
+                'path' => 'reservation-menu/',
+                'nama_file' => 'menu-' . rand(10, 10000) . '-' . strtotime(date('Y-m-d h:s')) . '.' . $originalImageExtension,
             ];
 
-            $row_image->storeAs('public/' . $detail_image['path'], $detail_image['nama_file']);
+            // Load gambar asli
+            switch ($originalImageExtension) {
+                case 'jpeg':
+                case 'jpg':
+                    $imageResource = imagecreatefromjpeg($originalImagePath);
+                    break;
+                case 'PNG':
+                case 'png':
+                    $imageResource = imagecreatefrompng($originalImagePath);
+                    break;
+                case 'gif':
+                    $imageResource = imagecreatefromgif($originalImagePath);
+                    break;
+                default:
+                    throw new \Exception('Unsupported image type');
+            }
+
+            // Mendapatkan dimensi asli gambar
+            $originalWidth = imagesx($imageResource);
+            $originalHeight = imagesy($imageResource);
+
+            // Membuat gambar baru dengan ukuran yang diinginkan
+            $newImageResource = imagecreatetruecolor($newWidth, $newHeight);
+
+            // Mengubah ukuran gambar
+            imagecopyresampled($newImageResource, $imageResource, 0, 0, 0, 0, $newWidth, $newHeight, $originalWidth, $originalHeight);
+
+            // Simpan gambar baru
+            $uploadPath = storage_path('app/public/' . $detail_image['path']);
+            if (!file_exists($uploadPath)) {
+                mkdir($uploadPath, 0777, true);
+            }
+
+            switch ($originalImageExtension) {
+                case 'jpeg':
+                case 'jpg':
+                    imagejpeg($newImageResource, $uploadPath . $detail_image['nama_file']);
+                    break;
+                case 'PNG':
+                case 'png':
+                    imagepng($newImageResource, $uploadPath . $detail_image['nama_file']);
+                    break;
+                case 'gif':
+                    imagegif($newImageResource, $uploadPath . $detail_image['nama_file']);
+                    break;
+            }
+
+            // Membersihkan memori
+            imagedestroy($imageResource);
+            imagedestroy($newImageResource);
+
+            // Path gambar yang telah diubah ukurannya
             $file = $detail_image['path'] . $detail_image['nama_file'];
+        } else {
+            $file = null;
         }
 
         ReservationMenu::create([
@@ -49,11 +110,15 @@ class ReservationMenuController extends Controller
             'category_id' => $request->categoryId,
             'limit' => $request->limit,
             'quota' => $request->quota,
-            'image' => !empty($request->image) ? $file : null,
+            'image' => $file,
         ]);
 
-        return redirect(url('reservation-menu'))->with('message', 'Data Berhasil ditambahkan!');
+        return redirect(url('reservation-menu'))->with('alert', [
+            'type' => 'success',
+            'message' => 'Data Berhasil ditambahkan!',
+        ]);
     }
+
 
     public function update(Request $request, $id)
     {

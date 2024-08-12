@@ -1,3 +1,4 @@
+import { Link, usePage } from "@inertiajs/react";
 import React from "react";
 const BiryaniImg1 = "/assets/img/biryani3.png";
 const BiryaniImg2 = "/assets/img/biryani5.png";
@@ -31,6 +32,8 @@ const Hero = () => {
     width: "100%",
   };
 
+  const { auth } = usePage().props;
+
   return (
     <>
       <span id="home"></span>
@@ -47,7 +50,7 @@ const Hero = () => {
               data-aos-once="true"
               className="flex flex-col justify-center gap-4 pt-12 sm:pt-0 text-center sm:text-left order-2 sm:order-1"
             >
-              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold">
+              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-orange-400">
                 Tasyakuran HUT {" "}
                 <span className="bg-clip-text text-transparent bg-gradient-to-b from-blue-600 to-blue-800">
                   Kimia Farma
@@ -60,7 +63,15 @@ const Hero = () => {
               </p>
               <div>
                 <button className="bg-gradient-to-r from-blue-600 to-blue-800 hover:scale-105 duration-200 text-white py-2 px-4 rounded-full">
-                  Order Now
+                    {!auth.user ? (
+                        <Link href="/login">Pesan</Link>
+                    ) : (
+                        auth.user.roles.includes("Admin") ? (
+                        <Link href="/dashboard">Pesan</Link>
+                        ) : (
+                        <Link href="/home">Pesan</Link>
+                        )
+                    )}
                 </button>
               </div>
             </div>

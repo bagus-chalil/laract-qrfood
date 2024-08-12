@@ -45,6 +45,7 @@ export default function ReservationMenu({ auth, reservationMenu, category, sessi
             onSuccess: () => {
                 closeModal();
                 appendAlert();
+                Inertia.visit(window.location.href, { preserveState: true });
             },
             onError: () => {
                 setShowAlert(false);

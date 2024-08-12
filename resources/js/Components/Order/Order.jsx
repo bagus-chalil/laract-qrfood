@@ -78,7 +78,7 @@ export default function Order({ categories, reservationMenu, kode_referal }) {
                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                                 {foodItems.map(item => (
                                     <div key={item.id} className={`bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg p-4 ${selectedFood.includes(item.id.toString()) ? 'border-blue-500' : ''}`}>
-                                        <img src={item.image_url} alt={item.name} className="w-full h-40 object-cover rounded-md mb-4" />
+                                        <img src={`/storage/${item.image}`} alt={item.name} className="w-full h-40 object-cover rounded-md mb-4" />
                                         <div className="flex items-center justify-between">
                                             <label className="flex items-center">
                                                 <input
@@ -89,7 +89,7 @@ export default function Order({ categories, reservationMenu, kode_referal }) {
                                                     checked={selectedFood.includes(item.id.toString())}
                                                     className="form-checkbox"
                                                 />
-                                                <span className="ml-2 text-gray-700 dark:text-gray-300">{item.name}</span>
+                                                <span className="ml-2 text-gray-700 dark:text-gray-300"><b>Kuota :</b> {item.quota} / {item.limit}</span>
                                             </label>
                                         </div>
                                     </div>
@@ -99,22 +99,22 @@ export default function Order({ categories, reservationMenu, kode_referal }) {
 
                         {/* Snack Section */}
                         <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-md p-6">
-                            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Snack (Max: 3)</h2>
+                            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Snack (Max: 2)</h2>
                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                                 {snackItems.map(item => (
                                     <div key={item.id} className={`bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg p-4 ${selectedSnacks.includes(item.id.toString()) ? 'border-blue-500' : ''}`}>
-                                        <img src={item.image_url} alt={item.name} className="w-full h-40 object-cover rounded-md mb-4" />
+                                        <img src={`/storage/${item.image}`} alt={item.name} className="w-full h-40 object-cover rounded-md mb-4" />
                                         <div className="flex items-center justify-between">
                                             <label className="flex items-center">
                                                 <input
                                                     type="checkbox"
                                                     value={item.id}
                                                     onChange={handleSnackChange}
-                                                    disabled={selectedSnacks.length >= 3 && !selectedSnacks.includes(item.id.toString())}
+                                                    disabled={selectedSnacks.length >= 2 && !selectedSnacks.includes(item.id.toString())}
                                                     checked={selectedSnacks.includes(item.id.toString())}
                                                     className="form-checkbox"
                                                 />
-                                                <span className="ml-2 text-gray-700 dark:text-gray-300">Kuota :{item.limit} / {item.quota}</span>
+                                                <span className="ml-2 text-gray-700 dark:text-gray-300"><b>Kuota :</b> {item.quota} / {item.limit}</span>
                                             </label>
                                         </div>
                                     </div>
@@ -128,7 +128,7 @@ export default function Order({ categories, reservationMenu, kode_referal }) {
                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                                 {drinkItems.map(item => (
                                     <div key={item.id} className={`bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg p-4 ${selectedDrink === item.id.toString() ? 'border-blue-500' : ''}`}>
-                                        <img src={item.image_url} alt={item.name} className="w-full h-40 object-cover rounded-md mb-4" />
+                                        <img src={`/storage/${item.image}`} alt={item.name} className="w-full h-40 object-cover rounded-md mb-4" />
                                         <div className="flex items-center justify-between">
                                             <label className="flex items-center">
                                                 <input
@@ -138,7 +138,7 @@ export default function Order({ categories, reservationMenu, kode_referal }) {
                                                     checked={selectedDrink === item.id.toString()}
                                                     className="form-checkbox"
                                                 />
-                                                <span className="ml-2 text-gray-700 dark:text-gray-300">{item.name}</span>
+                                                <span className="ml-2 text-gray-700 dark:text-gray-300"><b>Kuota :</b> {item.quota} / {item.limit}</span>
                                             </label>
                                         </div>
                                     </div>
