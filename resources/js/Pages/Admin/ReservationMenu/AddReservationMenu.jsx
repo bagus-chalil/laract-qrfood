@@ -68,7 +68,7 @@ export default function AddReservationMenu({ auth, category }) {
 
     return (
         <AdminLayout auth={auth}>
-            <Head title="Category" />
+            <Head title="Add | Reservation Menu" />
 
             <div className="w-full rounded-lg p-4">
                 <h1 className='text-lg font-semibold'>Tambah Menu</h1><hr />

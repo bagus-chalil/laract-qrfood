@@ -60,6 +60,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('',[ReservationMenuController::class,'index']);
             Route::get('show',[ReservationMenuController::class,'show']);
             Route::post('insert',[ReservationMenuController::class,'store']);
+            Route::get('edit/{id}',[ReservationMenuController::class,'edit']);
             Route::post('update/{id}',[ReservationMenuController::class,'update']);
             Route::delete('destroy',[ReservationMenuController::class,'destroy']);
         });

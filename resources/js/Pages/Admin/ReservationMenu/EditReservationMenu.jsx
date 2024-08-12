@@ -1,4 +1,4 @@
-import Modal from '@/Components/Modal';
+import AdminLayout from '@/Layouts/AdminLayout';
 import PrimaryButton from '@/Components/PrimaryButton';
 import InputLabel from '@/Components/InputLabel';
 import TextInput from '@/Components/TextInput';
@@ -6,8 +6,17 @@ import InputError from '@/Components/InputError';
 import { Textarea } from 'flowbite-react';
 import { useState } from 'react';
 
-export default function ModalEditReservationMenu({ open, onClose, data, category, setData, submit, processing, errors }) {
+export default function EditReservationMenu({ reservationMenu }) {
     const [imagePreview, setImagePreview] = useState(data.image ? `/storage/${data.image}` : null);
+    const [selectedReservationMenu, setReservationMenu] = useState(null);
+    const { data, setData, errors, post, reset } = useForm({
+        name: '',
+        categoryId: '',
+        description: '',
+        image: null,
+        limit: '',
+        quota: ''
+    });
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
@@ -28,8 +37,48 @@ export default function ModalEditReservationMenu({ open, onClose, data, category
         }
     };
 
+    const editReservationMenu = (reservationMenu) => {
+        setReservationMenu(reservationMenu);
+        setData({
+            name: reservationMenu.name,
+            categoryId: reservationMenu.category.id,
+            description: reservationMenu.description,
+            image: null,
+            limit: reservationMenu.limit,
+            quota: reservationMenu.quota
+        });
+    };
+
+    const submitEdit = (e) => {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append('name', data.name);
+        formData.append('categoryId', data.categoryId);
+        formData.append('description', data.description);
+        formData.append('limit', data.limit);
+        formData.append('quota', data.quota);
+        if (data.image) formData.append('image', data.image);
+
+        post(`/reservation-menu/update/${selectedReservationMenu.id}`, {
+            data: formData,
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+            onSuccess: () => {
+                setOpenEditModal(false);
+                getData();
+                reset();
+            },
+            onError: (errors) => {
+                console.error('Error updating data:', errors);
+            }
+        });
+    };
+
     return (
-        <Modal show={open} onClose={onClose}>
+        <AdminLayout auth={auth}>
+            <Head title="Edit | Reservation Menu" />
+
             <div className="w-full rounded-lg p-4">
                 <h1 className='text-lg font-semibold'>Edit Menu</h1><hr />
                 <div className='m-2 pt-4'>
@@ -160,6 +209,6 @@ export default function ModalEditReservationMenu({ open, onClose, data, category
                     </form>
                 </div>
             </div>
-        </Modal>
+        </AdminLayout>
     );
 }

@@ -1,27 +1,16 @@
-import Modal from '@/Components/Modal';
 import { Link, router, useForm, usePage } from '@inertiajs/react';
 import { useRef, useState } from 'react';
 import { FaRegTrashCan } from 'react-icons/fa6';
 import ModalDeleteReservationMenu from './ModalDeleteReservationMenu';
-import ModalEditReservationMenu from './ModalEditReservationMenu';
 
 export default function TableReservationMenu({ reservationMenu, category }) {
     const [isLoading, setIsLoading] = useState(false);
     const [openDeleteModal, setOpenDeleteModal] = useState(false);
-    const [openEditModal, setOpenEditModal] = useState(false);
-    const [selectedReservationMenu, setReservationMenu] = useState(null);
+
     const filter = useRef(reservationMenu.per_page);
     const { url } = usePage();
     const willDelete = useRef();
     const [search, setSearch] = useState("");
-    const { data, setData, errors, post, reset } = useForm({
-        name: '',
-        categoryId: '',
-        description: '',
-        image: null,
-        limit: '',
-        quota: ''
-    });
 
     const handleChangeFilter = (e) => {
         filter.current = e.target.value;
@@ -54,44 +43,7 @@ export default function TableReservationMenu({ reservationMenu, category }) {
         setOpenDeleteModal(true);
     };
 
-    const editReservationMenu = (reservationMenu) => {
-        setReservationMenu(reservationMenu);
-        setData({
-            name: reservationMenu.name,
-            categoryId: reservationMenu.category.id,
-            description: reservationMenu.description,
-            image: null,
-            limit: reservationMenu.limit,
-            quota: reservationMenu.quota
-        });
-        setOpenEditModal(true);
-    };
 
-    const submitEdit = (e) => {
-        e.preventDefault();
-        const formData = new FormData();
-        formData.append('name', data.name);
-        formData.append('categoryId', data.categoryId);
-        formData.append('description', data.description);
-        formData.append('limit', data.limit);
-        formData.append('quota', data.quota);
-        if (data.image) formData.append('image', data.image);
-
-        post(`/reservation-menu/update/${selectedReservationMenu.id}`, {
-            data: formData,
-            headers: {
-                'Content-Type': 'multipart/form-data',
-            },
-            onSuccess: () => {
-                setOpenEditModal(false);
-                getData();
-                reset();
-            },
-            onError: (errors) => {
-                console.error('Error updating data:', errors);
-            }
-        });
-    };
 
     return (
         <>
@@ -183,7 +135,11 @@ export default function TableReservationMenu({ reservationMenu, category }) {
                                 <td className="px-6 py-4">{item.quota}</td>
                                 <td className="px-6 py-4 text-left rtl:text-center">
                                     <div className="flex items-center gap-2 rounded">
-                                        <button onClick={() => editReservationMenu(item)} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</button>
+                                        <button className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                                            <Link href={`/reservation-menu/edit/${item.id}`}>
+                                                Edit
+                                            </Link>
+                                        </button>
                                         <button className='bg-red-400 text-white p-1 rounded' onClick={() => confirmDelete(item.id)}>
                                             <FaRegTrashCan />
                                         </button>
@@ -210,20 +166,6 @@ export default function TableReservationMenu({ reservationMenu, category }) {
                     ))}
                 </div>
             </div>
-
-            {/* Modal for Edit */}
-            {openEditModal && (
-                <ModalEditReservationMenu
-                    open={openEditModal}
-                    onClose={() => setOpenEditModal(false)}
-                    data={data}
-                    category={category}
-                    setData={setData}
-                    submit={submitEdit}
-                    processing={false}  // Set to true if you have processing state
-                    errors={errors}
-                />
-            )}
 
             {/* Modal for Delete */}
             {openDeleteModal && (

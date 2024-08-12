@@ -135,6 +135,18 @@ class ReservationMenuController extends Controller
         ]);
     }
 
+    public function edit($id)
+    {
+        $reservationMenu = ReservationMenu::findOrFail($id);
+
+        $category = Category::all();
+
+        return Inertia::render('Admin/ReservationMenu/EditReservationMenu',[
+            'reservationMenu' => $reservationMenu,
+            'category' => $category,
+            'sessions' => session()->all()
+        ]);
+    }
 
     public function update(Request $request, $id)
     {
