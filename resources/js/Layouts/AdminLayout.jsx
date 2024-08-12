@@ -3,7 +3,6 @@ import Header from '@/Components/shared/Header';
 import Sidebar from '@/Components/shared/Sidebar';
 import React from 'react';
 
-
 const MainLayout = ({ children }) => (
   <div>
     <Alert />

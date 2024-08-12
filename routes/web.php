@@ -58,6 +58,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         //Reservation Menu
         Route::prefix('reservation-menu/')->group(function () {
             Route::get('',[ReservationMenuController::class,'index']);
+            Route::get('show',[ReservationMenuController::class,'show']);
             Route::post('insert',[ReservationMenuController::class,'store']);
             Route::post('update/{id}',[ReservationMenuController::class,'update']);
             Route::delete('destroy',[ReservationMenuController::class,'destroy']);

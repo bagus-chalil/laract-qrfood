@@ -1,58 +1,10 @@
 import AdminLayout from '@/Layouts/AdminLayout';
-import { Head, usePage, useForm } from '@inertiajs/react';
+import { Head, usePage, useForm, Link } from '@inertiajs/react';
 import { useState, useEffect } from 'react';
-import ModalAddCategory from '../Category/ModalAddCategory';
 import TableReservationMenu from './TableReservationMenu';
-import ModalAddReservationMenu from './ModalAddReservationMenu';
 
 export default function ReservationMenu({ auth, reservationMenu, category, sessions }) {
-    const [openModal, setOpenModal] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
-
-    const { data, setData, post, processing, errors, reset } = useForm({
-        name: '',
-        description: '',
-        categoryId: '',
-        limit: '',
-        quota: '',
-        image: null,
-    });
-
-
-    const closeModal = () => {
-        setOpenModal(false);
-        reset();
-    };
-
-    const appendAlert = () => {
-        setShowAlert(true);
-    };
-
-    const submit = (e) => {
-        e.preventDefault();
-
-        const formData = new FormData();
-        formData.append('name', data.name);
-        formData.append('description', data.description);
-        formData.append('categoryId', data.categoryId);
-        formData.append('limit', data.limit);
-        formData.append('quota', data.quota);
-        if (data.image) {
-            formData.append('image', data.image);
-        }
-
-        post('/reservation-menu/insert', formData, {
-            onSuccess: () => {
-                closeModal();
-                appendAlert();
-                Inertia.visit(window.location.href, { preserveState: true });
-            },
-            onError: () => {
-                setShowAlert(false);
-            },
-        });
-    };
-
 
     useEffect(() => {
         if (sessions.message) {
@@ -91,9 +43,11 @@ export default function ReservationMenu({ auth, reservationMenu, category, sessi
                 <div className="flex flex-col sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4 m-4 mb-auto">
                     <button
                         className="relative inline-flex items-center justify-center p-0.5 mb-2 ml-auto overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-blue-500 to-blue-950 group-hover:from-blue-400 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-blue-800"
-                        onClick={() => setOpenModal(true)}>
+                        >
                         <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                            Tambah
+                            <Link href='/reservation-menu/show'>
+                                Tambah
+                            </Link>
                         </span>
                     </button>
                 </div>
@@ -103,7 +57,7 @@ export default function ReservationMenu({ auth, reservationMenu, category, sessi
             {/* END CONTENT */}
 
             {/* MODAL */}
-            <ModalAddReservationMenu
+            {/* <ModalAddReservationMenu
                 open={openModal}
                 onClose={closeModal}
                 data={data}
@@ -112,7 +66,7 @@ export default function ReservationMenu({ auth, reservationMenu, category, sessi
                 submit={submit}
                 processing={processing}
                 errors={errors}
-            />
+            /> */}
             {/* END MODAL */}
         </AdminLayout>
     );

@@ -27,6 +27,22 @@ class ReservationMenuController extends Controller
         ]);
     }
 
+    public function show(Request $request)
+    {
+        $reservationMenu = ReservationMenu::search($request->search)
+                                        ->query(fn (Builder $query) => $query->with('category'))
+                                        ->paginate($request->filter ?? 10)
+                                        ->appends('query',null)->withQueryString();
+
+        $category = Category::all();
+
+        return Inertia::render('Admin/ReservationMenu/AddReservationMenu',[
+            'reservationMenu' => $reservationMenu,
+            'category' => $category,
+            'sessions' => session()->all()
+        ]);
+    }
+
     /**
      * Store a newly created resource in storage.
      */
@@ -160,5 +176,4 @@ class ReservationMenuController extends Controller
 
         return redirect(url('reservation-menu'))->with('message', 'Data Berhasil dihapus!');
     }
-
 }

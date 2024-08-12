@@ -1,13 +1,51 @@
-import Modal from '@/Components/Modal';
+import AdminLayout from '@/Layouts/AdminLayout';
 import PrimaryButton from '@/Components/PrimaryButton';
 import InputLabel from '@/Components/InputLabel';
 import TextInput from '@/Components/TextInput';
 import InputError from '@/Components/InputError';
 import { Textarea } from 'flowbite-react';
 import { useState } from 'react';
+import { Head, useForm} from '@inertiajs/react';
 
-export default function ModalAddReservationMenu({ open, onClose, data, category, setData, submit, processing, errors }) {
+export default function AddReservationMenu({ auth, category }) {
     const [imagePreview, setImagePreview] = useState(null);
+    const { data, setData, post, processing, errors, reset } = useForm({
+        name: '',
+        description: '',
+        categoryId: '',
+        limit: '',
+        quota: '',
+        image: null,
+    });
+
+    const appendAlert = () => {
+        setShowAlert(true);
+    };
+
+    const submit = (e) => {
+        e.preventDefault();
+
+        const formData = new FormData();
+        formData.append('name', data.name);
+        formData.append('description', data.description);
+        formData.append('categoryId', data.categoryId);
+        formData.append('limit', data.limit);
+        formData.append('quota', data.quota);
+        if (data.image) {
+            formData.append('image', data.image);
+        }
+
+        post('/reservation-menu/insert', formData, {
+            onSuccess: () => {
+                closeModal();
+                appendAlert();
+                Inertia.visit(window.location.href, { preserveState: true });
+            },
+            onError: () => {
+                setShowAlert(false);
+            },
+        });
+    };
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
@@ -28,13 +66,10 @@ export default function ModalAddReservationMenu({ open, onClose, data, category,
         }
     };
 
-    const handleClose = () => {
-        onClose();
-        setImagePreview(null);
-    };
-
     return (
-        <Modal show={open} onClose={handleClose}>
+        <AdminLayout auth={auth}>
+            <Head title="Category" />
+
             <div className="w-full rounded-lg p-4">
                 <h1 className='text-lg font-semibold'>Tambah Menu</h1><hr />
                 <div className='m-2 pt-4'>
@@ -157,6 +192,6 @@ export default function ModalAddReservationMenu({ open, onClose, data, category,
                     </form>
                 </div>
             </div>
-        </Modal>
+        </AdminLayout>
     );
 }
