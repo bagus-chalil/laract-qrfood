@@ -4,13 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Inertia\Inertia;
+use App\Models\Orders;
 use App\Models\Category;
 use App\Models\OrderFood;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use App\Models\ReservationMenu;
+use App\Helper\GenerateNumberController;
 
 class OrderFoodController extends Controller
 {
+    public function __construct()
+    {
+        $this->code = new GenerateNumberController;
+    }
     /**
      * Display a listing of the resource.
      */
@@ -48,7 +55,39 @@ class OrderFoodController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $checkOrder = Orders::where('referal_code',$request->referal_code)->count();
+        $reservation_menu_id = array_merge($request->selectedFood,$request->selectedSnacks,$request->selectedDrink);
+
+        if ($checkOrder === 0) {
+           foreach ($reservation_menu_id as $value) {
+                $data_order = array(
+                    'reservation_menu_id' => $value,
+                    'referal_code' => $request->referal_code,
+                );
+
+                $order = Orders::create($data_order);
+
+                $data_transaction = array(
+                    'transaction_code' => $this->code->generate_code_order($value),
+                    'order_id' => $order->id,
+                );
+
+                $transactions = Transaction::create($data_transaction);
+                //Min Quota
+                $reservationMenu = ReservationMenu::find($value);
+                $reservationMenu->update(['quota'=>($reservationMenu->quota)+1]);
+
+            }
+            return redirect()->route('landing')->with('alert', [
+                'type' => 'success',
+                'message' => 'Pemesanan Makanan Berhasil!',
+            ]);
+        } else {
+            return redirect()->route('landing')->with('alert', [
+                'type' => 'error',
+                'message' => 'Invalid referral code!',
+            ]);
+        }
     }
 
     /**

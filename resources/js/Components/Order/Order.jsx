@@ -2,19 +2,22 @@ import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
-import { Head, Link, useForm } from '@inertiajs/react';
+import { Head, Link, router, useForm, usePage } from '@inertiajs/react';
 import React, { useState } from 'react';
 
 export default function Order({ categories, reservationMenu, kode_referal }) {
+    const { props } = usePage();
+    const csrfToken = props.csrf_token;
+
     const { data, setData, post, processing, errors, reset } = useForm({
         selectedFood: [],
         selectedSnacks: [],
-        selectedDrink: null,
+        selectedDrink: [],
     });
 
     const [selectedFood, setSelectedFood] = useState([]);
     const [selectedSnacks, setSelectedSnacks] = useState([]);
-    const [selectedDrink, setSelectedDrink] = useState(null);
+    const [selectedDrink, setSelectedDrink] = useState([]);
 
     const handleFoodChange = (event) => {
         const { value, checked } = event.target;
@@ -37,22 +40,28 @@ export default function Order({ categories, reservationMenu, kode_referal }) {
     const handleDrinkChange = (event) => {
         const { value, checked } = event.target;
         if (checked) {
-            setSelectedDrink(value);
+            setSelectedDrink(prev => [...prev, value]);
         } else {
-            setSelectedDrink(null);
+            setSelectedDrink(prev => prev.filter(item => item !== value));
         }
     };
 
     const submit = (e) => {
         e.preventDefault();
-        setData({
+
+        router.post('/order/insert', {
+            _token: csrfToken,
             selectedFood,
             selectedSnacks,
             selectedDrink,
-        });
-
-        post(route('submitOrder'), {
-            onFinish: () => reset(),
+            referal_code:kode_referal,
+        }, {
+            onSuccess: () => {
+                console.log('Data submitted successfully');
+            },
+            onError: () => {
+                console.log('Error occurred while submitting data');
+            },
         });
     };
 
@@ -89,7 +98,7 @@ export default function Order({ categories, reservationMenu, kode_referal }) {
                                                     checked={selectedFood.includes(item.id.toString())}
                                                     className="form-checkbox"
                                                 />
-                                                <span className="ml-2 text-gray-700 dark:text-gray-300"><b>Kuota :</b> {item.quota} / {item.limit}</span>
+                                                <span className="ml-2 text-gray-700 dark:text-gray-300">{item.name} | <b>Kuota :</b> {item.quota} / {item.limit}</span>
                                             </label>
                                         </div>
                                     </div>
@@ -114,7 +123,7 @@ export default function Order({ categories, reservationMenu, kode_referal }) {
                                                     checked={selectedSnacks.includes(item.id.toString())}
                                                     className="form-checkbox"
                                                 />
-                                                <span className="ml-2 text-gray-700 dark:text-gray-300"><b>Kuota :</b> {item.quota} / {item.limit}</span>
+                                                <span className="ml-2 text-gray-700 dark:text-gray-300">{item.name} | <b>Kuota :</b> {item.quota} / {item.limit}</span>
                                             </label>
                                         </div>
                                     </div>
@@ -135,10 +144,11 @@ export default function Order({ categories, reservationMenu, kode_referal }) {
                                                     type="checkbox"
                                                     value={item.id}
                                                     onChange={handleDrinkChange}
-                                                    checked={selectedDrink === item.id.toString()}
+                                                    disabled={selectedDrink.length >= 1 && !selectedDrink.includes(item.id.toString())}
+                                                    checked={selectedDrink.includes(item.id.toString())}
                                                     className="form-checkbox"
                                                 />
-                                                <span className="ml-2 text-gray-700 dark:text-gray-300"><b>Kuota :</b> {item.quota} / {item.limit}</span>
+                                                <span className="ml-2 text-gray-700 dark:text-gray-300">{item.name} | <b>Kuota :</b> {item.quota} / {item.limit}</span>
                                             </label>
                                         </div>
                                     </div>

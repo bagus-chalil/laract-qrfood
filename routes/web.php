@@ -26,7 +26,10 @@ Route::get('/', function () {
     return Inertia::render('Landing/Index');
 })->name('landing');
 
-Route::get('order/{kode_referal}', [OrderFoodController::class, 'index'])->name('order');
+Route::prefix('order/')->group(function () {
+    Route::get('{kode_referal}', [OrderFoodController::class, 'index'])->name('order');
+    Route::post('insert', [OrderFoodController::class, 'store']);
+});
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/route', [RouteController::class, 'index'])->name('route');

@@ -8,7 +8,6 @@ import { Head } from "@inertiajs/react";
 import Order from "@/Components/Order/Order";
 
 const OrderFood = ({categories, reservationMenu, kode_referal}) => {
-    console.log(categories, reservationMenu, kode_referal);
 
   React.useEffect(() => {
     AOS.init({
