@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\AutoGenerateReferal;
 use Inertia\Inertia;
 use App\Http\Controllers\Menu;
 use App\Models\ReservationMenu;
@@ -33,6 +34,9 @@ Route::prefix('order/')->group(function () {
 });
 Route::get('QR/Show/{kode_transaction}/{id}', [QRController::class, 'show']);
 Route::get('/qrcode/{code}', [QRController::class, 'generateQRCode']);
+
+//Auto Referal
+Route::get('/auto-referal', [AutoGenerateReferal::class, 'generateReferalCodesForUsers']);
 
 
 Route::middleware(['auth', 'verified'])->group(function () {
