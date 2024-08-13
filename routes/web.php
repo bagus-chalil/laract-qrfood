@@ -65,11 +65,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::delete('destroy',[ReservationMenuController::class,'destroy']);
         });
 
-        //QR
-        Route::prefix('qr/')->group(function () {
-            Route::get('scanner',[QRController::class,'index']);
-            Route::get('verif-transaction/{kode}',[QRController::class,'processQRTransaction']);
-        });
+    });
+
+    //QR
+    Route::prefix('qr/')->group(function () {
+        Route::get('scanner',[QRController::class,'index'])->name('qr.scanner');
+        Route::get('verif-transaction/{kode}',[QRController::class,'processQRTransaction']);
     });
 
     Route::group(['middleware' => ['role:User']], function () {

@@ -21,8 +21,11 @@ export default function Authenticated({ user, header, children }) {
                             </div>
 
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <NavLink href={route('dashboard')} active={route().current('dashboard')}>
-                                    Dashboard
+                                <NavLink href={route('home')} active={route().current('home')}>
+                                    Home
+                                </NavLink>
+                                <NavLink href={route('qr.scanner')} active={route().current('qr.scanner')}>
+                                    QR
                                 </NavLink>
                             </div>
                         </div>

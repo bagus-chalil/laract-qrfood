@@ -1,4 +1,4 @@
-import AdminLayout from '@/Layouts/AdminLayout';
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
 import { useEffect } from 'react';
 import { Html5Qrcode } from 'html5-qrcode';
@@ -27,7 +27,7 @@ const QRCodeScanner = ({ auth }) => {
                 if (stream) {
                     html5QrCode.start(
                         { facingMode: "environment" },
-                        { fps: 10, qrbox: { width: 500, height: 500 } },
+                        { fps: 30, qrbox: { width: 500, height: 500 } },
                         onScanSuccess,
                         onScanFailure
                     ).catch(error => {
@@ -51,8 +51,11 @@ const QRCodeScanner = ({ auth }) => {
     }, []);
 
     return (
-        <AdminLayout auth={auth}>
-            <Head title="QR Code Scanner" />
+        <AuthenticatedLayout
+            user={auth.user}
+            header={<h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Dashboard</h2>}
+        >
+        <Head title="QR Code Scanner" />
             <div className="container mx-auto px-4 py-8">
                 <div className="max-w-lg mx-auto bg-white rounded-lg shadow-md p-6">
                     <div id="reader" className="w-full h-64 bg-gray-100 border border-gray-300 rounded-lg mb-4"></div>
@@ -71,7 +74,7 @@ const QRCodeScanner = ({ auth }) => {
                     </a>
                 </div>
             </div>
-        </AdminLayout>
+        </AuthenticatedLayout>
     );
 }
 
