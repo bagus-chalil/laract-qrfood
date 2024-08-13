@@ -239,7 +239,7 @@ export default function Order({ transactions, reservationMenu, kode_referal }) {
                                                         {item.reservation_menu.name}
                                                     </td>
                                                     <td className="px-6 py-4">
-                                                        <Link href={`/QR/Show/${item.transaction.transaction_code}`}>
+                                                        <Link href={`/QR/Show/${item.transaction.transaction_code}/${item.transaction.id}`}>
                                                             QRCODE
                                                         </Link>
                                                     </td>

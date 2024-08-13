@@ -17,11 +17,14 @@ class QRController extends Controller
         ]);
     }
 
-    public function show($kode_referal)
+    public function show($kode_referal,$id)
     {
+        $transactions = Transaction::with('order.reservation_menu')->where('id',$id)->first();
+
         return Inertia::render('User/QR/QRShow',[
             'sessions' => session()->all(),
-            'transactionCode' => $kode_referal
+            'referal_code' => $kode_referal,
+            'transactions' => $transactions,
         ]);
     }
 
