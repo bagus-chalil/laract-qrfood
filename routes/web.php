@@ -68,6 +68,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         //QR
         Route::prefix('qr/')->group(function () {
             Route::get('scanner',[QRController::class,'index']);
+            Route::get('verif-transaction/{kode}',[QRController::class,'processQRTransaction']);
         });
     });
 

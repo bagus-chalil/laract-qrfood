@@ -8,10 +8,10 @@ const QRCodeScanner = ({ auth }) => {
         const html5QrCode = new Html5Qrcode("reader");
 
         const onScanSuccess = (decodedText, decodedResult) => {
-            document.getElementById('booking_code').value = decodedText;
-            const bookingCode = decodedText;
+            document.getElementById('transaction').value = decodedText;
+            const transaction = decodedText;
             html5QrCode.stop().then(() => {
-                window.location.href = `/qrcode/scan-view/${bookingCode}`;
+                window.location.href = `/qr/verif-transaction/${transaction}`;
             }).catch(error => {
                 alert('Something went wrong');
             });
@@ -26,8 +26,8 @@ const QRCodeScanner = ({ auth }) => {
                 const stream = await navigator.mediaDevices.getUserMedia({ video: true });
                 if (stream) {
                     html5QrCode.start(
-                        { facingMode: "environment" }, // Configuration
-                        { fps: 10, qrbox: { width: 250, height: 250 } }, // UI configuration
+                        { facingMode: "environment" },
+                        { fps: 10, qrbox: { width: 500, height: 500 } },
                         onScanSuccess,
                         onScanFailure
                     ).catch(error => {
@@ -58,8 +58,8 @@ const QRCodeScanner = ({ auth }) => {
                     <div id="reader" className="w-full h-64 bg-gray-100 border border-gray-300 rounded-lg mb-4"></div>
                     <input
                         type="text"
-                        id="booking_code"
-                        name="booking_code"
+                        id="transaction"
+                        name="transaction"
                         className="w-full p-2 border border-gray-300 rounded-lg"
                         disabled
                     />
