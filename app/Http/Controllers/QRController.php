@@ -42,13 +42,20 @@ class QRController extends Controller
         $transactions = Transaction::with('order.reservation_menu')->where('transaction_code',$code)->first();
 
         if ($transactions) {
-            if ($transactions->order->reservation_menu->pic_id) {
+            if ($transactions->order->reservation_menu->pic_id != Auth::user()->id) {
                 return redirect(url('/qr/scanner'))->with('alert', [
                     'type' => 'error',
                     'message' => 'QR bukan dari kategori Anda!',
                 ]);
             } else {
-                $transactions->update(['is_active' => 0]);
+                if ($transactions->is_active == 0) {
+                    return redirect(url('/qr/scanner'))->with('alert', [
+                        'type' => 'error',
+                        'message' => 'QR transaksi sudah digunakan!',
+                    ]);
+                } else {
+                    $transactions->update(['is_active' => '0']);
+                }
             }
         } else {
             return redirect(url('/qr/scanner'))->with('alert', [

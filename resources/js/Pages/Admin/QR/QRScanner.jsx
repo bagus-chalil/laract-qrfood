@@ -2,6 +2,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
 import { useEffect } from 'react';
 import { Html5Qrcode } from 'html5-qrcode';
+import Alert from '@/Components/Alert';
 
 const QRCodeScanner = ({ auth }) => {
 
@@ -56,6 +57,7 @@ const QRCodeScanner = ({ auth }) => {
             user={auth.user}
             header={<h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Dashboard</h2>}
         >
+        <Alert />
         <Head title="QR Code Scanner" />
             <div className="container mx-auto px-4 py-8">
                 <div className="max-w-lg mx-auto bg-white rounded-lg shadow-md p-6">
