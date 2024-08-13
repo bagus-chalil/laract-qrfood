@@ -9,10 +9,10 @@ class RouteController extends Controller
 {
     public function index()
     {
-        if (Auth::user()->roles[0]['name'] === "User") {
-            return redirect(url('home'));
-        } else {
+        if (Auth::user()->roles[0]['name'] === "Admin") {
             return redirect(url('dashboard'));
+        } else {
+            return redirect(url('home'));
         }
     }
 }

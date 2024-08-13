@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Inertia\Inertia;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
@@ -21,9 +22,11 @@ class QRController extends Controller
     {
         $transactions = Transaction::with('order.reservation_menu')->where('id',$id)->first();
 
+        $user = User::where('referal_code',$transactions->referal_code)->first();
+
         return Inertia::render('User/QR/QRShow',[
             'sessions' => session()->all(),
-            'referal_code' => $kode_referal,
+            'user' => $user,
             'transactions' => $transactions,
         ]);
     }

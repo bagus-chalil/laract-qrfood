@@ -11,6 +11,7 @@ use App\Http\Controllers\UsersController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\OrderFoodController;
+use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\ReservationMenuController;
 
 Route::get('/welcome', function () {
@@ -36,6 +37,13 @@ Route::get('/qrcode/{code}', [QRController::class, 'generateQRCode']);
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/route', [RouteController::class, 'index'])->name('route');
+
+    //QR
+    Route::prefix('qr/')->group(function () {
+        Route::get('scanner',[QRController::class,'index'])->name('qr.scanner');
+        Route::get('verif-transaction/{kode}',[QRController::class,'processQRTransaction']);
+    });
+
     Route::group(['middleware' => ['role:Admin']], function () {
         //Dashboard
         Route::get('dashboard', function () {
@@ -67,16 +75,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     });
 
-    //QR
-    Route::prefix('qr/')->group(function () {
-        Route::get('scanner',[QRController::class,'index'])->name('qr.scanner');
-        Route::get('verif-transaction/{kode}',[QRController::class,'processQRTransaction']);
-    });
-
     Route::group(['middleware' => ['role:User']], function () {
         Route::get('home', function () {
             return Inertia::render('Dashboard');
         })->name('home');
+
+        Route::get('/list-transaction', [TransactionController::class, 'index'])->name('transaction');
 
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

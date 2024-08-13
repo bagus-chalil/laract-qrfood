@@ -27,6 +27,9 @@ export default function Authenticated({ user, header, children }) {
                                 <NavLink href={route('qr.scanner')} active={route().current('qr.scanner')}>
                                     QR
                                 </NavLink>
+                                <NavLink href={route('transaction')} active={route().current('transaction')}>
+                                    Transaksi
+                                </NavLink>
                             </div>
                         </div>
 

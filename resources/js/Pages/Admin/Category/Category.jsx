@@ -1,4 +1,4 @@
-import AdminLayout from '@/Layouts/AdminLayout';
+qqq11
 import TableCategory from './TableCategory';
 import { Head, usePage, useForm } from '@inertiajs/react';
 import { useState, useEffect } from 'react';
