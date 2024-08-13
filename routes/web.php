@@ -44,6 +44,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('verif-transaction/{kode}',[QRController::class,'processQRTransaction']);
     });
 
+    Route::get('verif-transaction/{kode}',[QRController::class,'processQRTransaction']);
+
     Route::group(['middleware' => ['role:Admin']], function () {
         //Dashboard
         Route::get('dashboard', function () {

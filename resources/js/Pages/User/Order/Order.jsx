@@ -31,7 +31,7 @@ export default function Order({ transactions, reservationMenu, kode_referal }) {
         const { value, checked } = event.target;
 
         if (item.quota >= item.limit) {
-            return; // Disable checkbox when quota is equal or greater than limit
+            return;
         }
 
         if (checked) {
@@ -144,7 +144,7 @@ export default function Order({ transactions, reservationMenu, kode_referal }) {
 
                                         {/* Snack Section */}
                                         <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-md p-6">
-                                            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Snack (Maksimal: 2)</h2>
+                                            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Jajanan (Maksimal: 2)</h2>
                                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                                                 {snackItems.map(item => (
                                                     <div key={item.id} className={`bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg p-4 ${selectedSnacks.includes(item.id.toString()) ? 'border-blue-500' : ''}`}>

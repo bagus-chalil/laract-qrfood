@@ -23,4 +23,9 @@ class Orders extends Model
     {
         return $this->hasOne(ReservationMenu::class,'id','reservation_menu_id');
     }
+
+    public function user()
+    {
+        return $this->hasOne(User::class,'referal_code','referal_code');
+    }
 }

@@ -102,6 +102,12 @@ export default function Authenticated({ user, header, children }) {
                         <ResponsiveNavLink href={route('dashboard')} active={route().current('dashboard')}>
                             Dashboard
                         </ResponsiveNavLink>
+                        <ResponsiveNavLink href={route('qr.scanner')} active={route().current('qr.scanner')}>
+                            QR
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink href={route('transaction')} active={route().current('transaction')}>
+                            Transaksi
+                        </ResponsiveNavLink>
                     </div>
 
                     <div className="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
