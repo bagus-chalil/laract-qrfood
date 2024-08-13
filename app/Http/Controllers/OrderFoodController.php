@@ -55,40 +55,80 @@ class OrderFoodController extends Controller
      */
     public function store(Request $request)
     {
-        $checkOrder = Orders::where('referal_code',$request->referal_code)->count();
-        $reservation_menu_id = array_merge($request->selectedFood,$request->selectedSnacks,$request->selectedDrink);
+        $referalCode = $request->referal_code;
+        $selectedFood = $request->selectedFood;
+        $selectedSnacks = $request->selectedSnacks;
+        $selectedDrink = $request->selectedDrink;
+        $reservationMenuIds = array_merge($selectedFood, $selectedSnacks, $selectedDrink);
 
-        if ($checkOrder === 0) {
-           foreach ($reservation_menu_id as $value) {
-                $data_order = array(
-                    'reservation_menu_id' => $value,
-                    'referal_code' => $request->referal_code,
-                );
-
-                $order = Orders::create($data_order);
-
-                $data_transaction = array(
-                    'transaction_code' => $this->code->generate_code_order($value),
-                    'order_id' => $order->id,
-                );
-
-                $transactions = Transaction::create($data_transaction);
-                //Min Quota
-                $reservationMenu = ReservationMenu::find($value);
-                $reservationMenu->update(['quota'=>($reservationMenu->quota)+1]);
-
-            }
-            return redirect()->route('landing')->with('alert', [
-                'type' => 'success',
-                'message' => 'Pemesanan Makanan Berhasil!',
-            ]);
-        } else {
+        // Check if the referal code is already used
+        if (Orders::where('referal_code', $referalCode)->exists()) {
             return redirect()->route('landing')->with('alert', [
                 'type' => 'error',
                 'message' => 'Kode Referal telah digunakan!',
             ]);
         }
+
+        // Fetch all reservation menus and their quotas
+        $reservationMenus = ReservationMenu::whereIn('id', $reservationMenuIds)->get()->keyBy('id');
+
+        // Check quota and prepare data for bulk insertion
+        $orders = [];
+        $transactions = [];
+        $updateQuotaData = [];
+
+        foreach ($reservationMenuIds as $menuId) {
+            $reservationMenu = $reservationMenus->get($menuId);
+
+            if ($reservationMenu->quota >= $reservationMenu->limit) {
+                return redirect(back())->with('alert', [
+                    'type' => 'error',
+                    'message' => 'Kuota telah terpenuhi untuk salah satu menu!',
+                ]);
+            }
+
+            $order = [
+                'reservation_menu_id' => $menuId,
+                'referal_code' => $referalCode,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ];
+            $orders[] = $order;
+
+            $transaction = [
+                'transaction_code' => $this->code->generate_code_order($menuId),
+                'order_id' => null,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ];
+            $transactions[] = $transaction;
+
+            // Prepare quota update data
+            if (!isset($updateQuotaData[$menuId])) {
+                $updateQuotaData[$menuId] = ['quota' => $reservationMenu->quota + 1];
+            }
+        }
+
+        // Insert orders and transactions in bulk
+        Orders::insert($orders);
+        $orderIds = Orders::where('referal_code', $referalCode)->pluck('id')->toArray();
+
+        foreach ($transactions as $index => &$transaction) {
+            $transaction['order_id'] = $orderIds[$index];
+        }
+        Transaction::insert($transactions);
+
+        // Update quotas in bulk
+        foreach ($updateQuotaData as $menuId => $data) {
+            ReservationMenu::where('id', $menuId)->update($data);
+        }
+
+        return redirect()->route('landing')->with('alert', [
+            'type' => 'success',
+            'message' => 'Pemesanan Makanan Berhasil!',
+        ]);
     }
+
 
     /**
      * Display the specified resource.

@@ -61,7 +61,7 @@ const Hero = () => {
                 Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eaque
                 reiciendis inventore iste ratione ex alias quis magni at optio
               </p>
-              <div>
+              {/* <div>
                 <button className="bg-gradient-to-r from-blue-600 to-blue-800 hover:scale-105 duration-200 text-white py-2 px-4 rounded-full">
                     {!auth.user ? (
                         <Link href="/login">Pesan</Link>
@@ -73,7 +73,7 @@ const Hero = () => {
                         )
                     )}
                 </button>
-              </div>
+              </div> */}
             </div>
             {/* Image section */}
             <div className="min-h-[450px] sm:min-h-[450px] flex justify-center items-center relative order-1 sm:order-2 ">

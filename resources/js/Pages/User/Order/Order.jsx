@@ -1,7 +1,4 @@
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
 import LandingLayout from '@/Layouts/LandingLayout';
 import { Head, Link, router, useForm, usePage } from '@inertiajs/react';
 import React, { useState, useEffect } from 'react';
@@ -30,30 +27,45 @@ export default function Order({ transactions, reservationMenu, kode_referal }) {
         );
     }, [selectedFood, selectedSnacks, selectedDrink]);
 
-    const handleFoodChange = (event) => {
+    const handleFoodChange = (event, item) => {
         const { value, checked } = event.target;
+
+        if (item.quota >= item.limit) {
+            return; // Disable checkbox when quota is equal or greater than limit
+        }
+
         if (checked) {
             setSelectedFood(prev => [...prev, value]);
         } else {
-            setSelectedFood(prev => prev.filter(item => item !== value));
+            setSelectedFood(prev => prev.filter(i => i !== value));
         }
     };
 
-    const handleSnackChange = (event) => {
+    const handleSnackChange = (event, item) => {
         const { value, checked } = event.target;
+
+        if (item.quota >= item.limit) {
+            return; // Disable checkbox when quota is equal or greater than limit
+        }
+
         if (checked) {
             setSelectedSnacks(prev => [...prev, value]);
         } else {
-            setSelectedSnacks(prev => prev.filter(item => item !== value));
+            setSelectedSnacks(prev => prev.filter(i => i !== value));
         }
     };
 
-    const handleDrinkChange = (event) => {
+    const handleDrinkChange = (event, item) => {
         const { value, checked } = event.target;
+
+        if (item.quota >= item.limit) {
+            return;
+        }
+
         if (checked) {
             setSelectedDrink(prev => [...prev, value]);
         } else {
-            setSelectedDrink(prev => prev.filter(item => item !== value));
+            setSelectedDrink(prev => prev.filter(i => i !== value));
         }
     };
 
@@ -66,10 +78,9 @@ export default function Order({ transactions, reservationMenu, kode_referal }) {
             selectedFood,
             selectedSnacks,
             selectedDrink,
-            referal_code:kode_referal,
+            referal_code: kode_referal,
         }, {
             onSuccess: () => {
-                console.log('Data submitted successfully');
                 setIsLoading(false);
             },
             onError: () => {
@@ -87,135 +98,158 @@ export default function Order({ transactions, reservationMenu, kode_referal }) {
         <LandingLayout>
             <div data-aos="fade-up" data-aos-duration="300" className="py-10 bg-gray-100 dark:bg-gray-900">
                 <div className="container mx-auto">
-
                     <div className="w-full mt-6 px-6 py-4 bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg">
-                    {transactions.length === 0 ? (
-                        <div id='Form'>
-                            <div className="text-center max-w-[600px] mx-auto mb-8">
-                                <h4 className="text-4xl font-bold text-gray-900 dark:text-white">Pesan Makanan</h4>
-                                <p className="text-sm text-gray-500 dark:text-gray-400">
-                                    Pilih makanan, snack, dan minuman sesuai preferensi Anda.
-                                </p>
-                            </div>
-                            <form onSubmit={submit}>
-                                <div className="space-y-6">
-                                    {/* Food Section */}
-                                    <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-md p-6">
-                                        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Makanan (Max: 1)</h2>
-                                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                                            {foodItems.map(item => (
-                                                <div key={item.id} className={`bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg p-4 ${selectedFood.includes(item.id.toString()) ? 'border-blue-500' : ''}`}>
-                                                    <img src={`/storage/${item.image}`} alt={item.name} className="w-full h-40 object-cover rounded-md mb-4" />
-                                                    <div className="flex items-center justify-between">
-                                                        <label className="flex items-center">
-                                                            <input
-                                                                type="checkbox"
-                                                                value={item.id}
-                                                                onChange={handleFoodChange}
-                                                                disabled={selectedFood.length >= 1 && !selectedFood.includes(item.id.toString())}
-                                                                checked={selectedFood.includes(item.id.toString())}
-                                                                className="form-checkbox"
-                                                            />
-                                                            <span className="ml-2 text-gray-700 dark:text-gray-300">{item.name} | <b>Kuota :</b> {item.quota} / {item.limit}</span>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </div>
-
-                                    {/* Snack Section */}
-                                    <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-md p-6">
-                                        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Snack (Max: 2)</h2>
-                                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                                            {snackItems.map(item => (
-                                                <div key={item.id} className={`bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg p-4 ${selectedSnacks.includes(item.id.toString()) ? 'border-blue-500' : ''}`}>
-                                                    <img src={`/storage/${item.image}`} alt={item.name} className="w-full h-40 object-cover rounded-md mb-4" />
-                                                    <div className="flex items-center justify-between">
-                                                        <label className="flex items-center">
-                                                            <input
-                                                                type="checkbox"
-                                                                value={item.id}
-                                                                onChange={handleSnackChange}
-                                                                disabled={selectedSnacks.length >= 2 && !selectedSnacks.includes(item.id.toString())}
-                                                                checked={selectedSnacks.includes(item.id.toString())}
-                                                                className="form-checkbox"
-                                                            />
-                                                            <span className="ml-2 text-gray-700 dark:text-gray-300">{item.name} | <b>Kuota :</b> {item.quota} / {item.limit}</span>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </div>
-
-                                    {/* Drink Section */}
-                                    <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-md p-6">
-                                        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Minuman (Max: 1)</h2>
-                                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                                            {drinkItems.map(item => (
-                                                <div key={item.id} className={`bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg p-4 ${selectedDrink.includes(item.id.toString()) ? 'border-blue-500' : ''}`}>
-                                                    <img src={`/storage/${item.image}`} alt={item.name} className="w-full h-40 object-cover rounded-md mb-4" />
-                                                    <div className="flex items-center justify-between">
-                                                        <label className="flex items-center">
-                                                            <input
-                                                                type="checkbox"
-                                                                value={item.id}
-                                                                onChange={handleDrinkChange}
-                                                                disabled={selectedDrink.length >= 1 && !selectedDrink.includes(item.id.toString())}
-                                                                checked={selectedDrink.includes(item.id.toString())}
-                                                                className="form-checkbox"
-                                                            />
-                                                            <span className="ml-2 text-gray-700 dark:text-gray-300">{item.name} | <b>Kuota :</b> {item.quota} / {item.limit}</span>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </div>
-
-                                    {/* Submit Button */}
-                                    {isSubmitEnabled && (
-                                        <div className="text-center mt-6">
-                                            <PrimaryButton type="submit" disabled={processing || isLoading}>
-                                                {processing || isLoading ? 'Submitting...' : 'Submit'}
-                                            </PrimaryButton>
-                                        </div>
-                                    )}
+                        {transactions.length === 0 ? (
+                            <div id='Form'>
+                                <div className="text-center max-w-[600px] mx-auto mb-8">
+                                    <h4 className="text-4xl font-bold text-gray-900 dark:text-white">Pesan Makanan</h4>
+                                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                                        Pilih makanan, snack, dan minuman sesuai preferensi Anda.
+                                    </p>
                                 </div>
-                            </form>
-                        </div>
-                    ) : (
-                        <div id='Table'>
-                            <div className="text-center max-w-[600px] mx-auto mb-8 mt-4">
-                                <h1 className="text-4xl font-bold text-gray-900 dark:text-white">Daftar Pesanan Anda</h1>
-                                <p className="text-sm text-gray-500 dark:text-gray-400">
-                                    Terima Kasih telah memasan makanan pada acara Tasyakuran HUT Kimi Farma ke-53, berikut Pesanan Anda :
-                                </p>
+                                <form onSubmit={submit}>
+                                    <div className="space-y-6">
+                                        {/* Food Section */}
+                                        <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-md p-6">
+                                            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Makanan (Maksimal: 1)</h2>
+                                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                                                {foodItems.map(item => (
+                                                    <div key={item.id} className={`bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg p-4 ${selectedFood.includes(item.id.toString()) ? 'border-blue-500' : ''}`}>
+                                                        <div className="flex items-center justify-between mb-4 mt-1">
+                                                            <span className="ml-2 text-gray-700 dark:text-gray-300">{item.name}</span>
+                                                        </div>
+                                                        <img src={`/storage/${item.image}`} alt={item.name} className="w-full h-40 object-cover rounded-md mb-4" />
+                                                        <div className="flex items-center justify-between">
+                                                            <label className="flex items-center">
+                                                                {item.quota < item.limit && (
+                                                                    <input
+                                                                        type="checkbox"
+                                                                        value={item.id}
+                                                                        onChange={(e) => handleFoodChange(e, item)}
+                                                                        disabled={selectedFood.length >= 1 && !selectedFood.includes(item.id.toString()) || item.quota >= item.limit}
+                                                                        checked={selectedFood.includes(item.id.toString())}
+                                                                        className="form-checkbox"
+                                                                    />
+                                                                )}
+                                                                <h6 className="ml-2 text-gray-700 dark:text-gray-300" id='status'>
+                                                                    <b>{item.quota >= item.limit ? 'Habis' : 'Tersedia'}</b>
+                                                                </h6>
+                                                                <span className="ml-2 text-gray-700 dark:text-gray-300"> | <b>Kuota :</b> {item.quota} / {item.limit}</span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+
+                                        {/* Snack Section */}
+                                        <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-md p-6">
+                                            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Snack (Maksimal: 2)</h2>
+                                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                                                {snackItems.map(item => (
+                                                    <div key={item.id} className={`bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg p-4 ${selectedSnacks.includes(item.id.toString()) ? 'border-blue-500' : ''}`}>
+                                                        <div className="flex items-center justify-between mb-4 mt-1">
+                                                            <span className="ml-2 text-gray-700 dark:text-gray-300">{item.name}</span>
+                                                        </div>
+                                                        <img src={`/storage/${item.image}`} alt={item.name} className="w-full h-40 object-cover rounded-md mb-4" />
+                                                        <div className="flex items-center justify-between">
+                                                            <label className="flex items-center">
+                                                                {item.quota < item.limit && (
+                                                                    <input
+                                                                        type="checkbox"
+                                                                        value={item.id}
+                                                                        onChange={(e) => handleSnackChange(e, item)}
+                                                                        disabled={selectedSnacks.length >= 2 && !selectedSnacks.includes(item.id.toString()) || item.quota >= item.limit}
+                                                                        checked={selectedSnacks.includes(item.id.toString())}
+                                                                        className="form-checkbox"
+                                                                    />
+                                                                )}
+                                                                <h6 className="ml-2 text-gray-700 dark:text-gray-300" id='status'>
+                                                                    <b>{item.quota >= item.limit ? 'Habis' : 'Tersedia'}</b>
+                                                                </h6>
+                                                                <span className="ml-2 text-gray-700 dark:text-gray-300"> | <b>Kuota :</b> {item.quota} / {item.limit}</span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+
+                                        {/* Drink Section */}
+                                        <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-md p-6">
+                                            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Minuman (Maksimal: 1)</h2>
+                                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                                                {drinkItems.map(item => (
+                                                    <div key={item.id} className={`bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg p-4 ${selectedDrink.includes(item.id.toString()) ? 'border-blue-500' : ''}`}>
+                                                        <div className="flex items-center justify-between mb-4 mt-1">
+                                                            <span className="ml-2 text-gray-700 dark:text-gray-300">{item.name}</span>
+                                                        </div>
+                                                        <img src={`/storage/${item.image}`} alt={item.name} className="w-full h-40 object-cover rounded-md mb-4" />
+                                                        <div className="flex items-center justify-between">
+                                                            <label className="flex items-center">
+                                                                {item.quota < item.limit && (
+                                                                    <input
+                                                                        type="checkbox"
+                                                                        value={item.id}
+                                                                        onChange={(e) => handleDrinkChange(e, item)}
+                                                                        disabled={selectedDrink.length >= 1 && !selectedDrink.includes(item.id.toString()) || item.quota >= item.limit}
+                                                                        checked={selectedDrink.includes(item.id.toString())}
+                                                                        className="form-checkbox"
+                                                                    />
+                                                                )}
+                                                                <h6 className="ml-2 text-gray-700 dark:text-gray-300" id='status'>
+                                                                    <b>{item.quota >= item.limit ? 'Habis' : 'Tersedia'}</b>
+                                                                </h6>
+                                                                <span className="ml-2 text-gray-700 dark:text-gray-300"> | <b>Kuota :</b> {item.quota} / {item.limit}</span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+
+                                        {/* Submit Button */}
+                                        {isSubmitEnabled && (
+                                            <div className="text-center mt-6">
+                                                <PrimaryButton type="submit" disabled={processing || isLoading}>
+                                                    {processing || isLoading ? 'Submitting...' : 'Submit'}
+                                                </PrimaryButton>
+                                            </div>
+                                        )}
+                                    </div>
+                                </form>
                             </div>
-                            <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-                                <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                                    <tbody>
-                                        {transactions.map(item => (
-                                            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700" key={item.id}>
-                                                <td className="px-6 py-4">
-                                                    {item.reservation_menu.category.name}
-                                                </td>
-                                                <td className="px-6 py-4">
-                                                    {item.reservation_menu.name}
-                                                </td>
-                                                <td className="px-6 py-4">
-                                                    <Link href={`/QR/Show/${item.transaction.transaction_code}`}>
-                                                        QRCODE
-                                                    </Link>
-                                                </td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
+                        ) : (
+                            <div id='Table'>
+                                <div className="text-center max-w-[600px] mx-auto mb-8 mt-4">
+                                    <h1 className="text-4xl font-bold text-gray-900 dark:text-white">Daftar Pesanan Anda</h1>
+                                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                                        Terima Kasih telah memesan makanan pada acara Tasyakuran HUT Kimi Farma ke-53, berikut Pesanan Anda :
+                                    </p>
+                                </div>
+                                <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+                                    <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                        <tbody>
+                                            {transactions.map(item => (
+                                                <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700" key={item.id}>
+                                                    <td className="px-6 py-4">
+                                                        {item.reservation_menu.category.name}
+                                                    </td>
+                                                    <td className="px-6 py-4">
+                                                        {item.reservation_menu.name}
+                                                    </td>
+                                                    <td className="px-6 py-4">
+                                                        <Link href={`/QR/Show/${item.transaction.transaction_code}`}>
+                                                            QRCODE
+                                                        </Link>
+                                                    </td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
-                        </div>
-                    )}
+                        )}
                     </div>
                 </div>
             </div>

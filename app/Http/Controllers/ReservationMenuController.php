@@ -2,15 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ReservationMenuRequest;
-use App\Models\Category;
-use App\Models\ReservationMenu;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
+use App\Models\Category;
+use Illuminate\Http\Request;
+use App\Models\ReservationMenu;
+use App\Helper\GenerateNumberController;
+use Illuminate\Database\Eloquent\Builder;
+use App\Http\Requests\ReservationMenuRequest;
 
 class ReservationMenuController extends Controller
 {
+    public function __construct()
+    {
+        $this->code = new GenerateNumberController;
+    }
     public function index(Request $request)
     {
         $reservationMenu = ReservationMenu::search($request->search)
@@ -127,6 +132,7 @@ class ReservationMenuController extends Controller
             'limit' => $request->limit,
             'quota' => $request->quota,
             'image' => $file,
+            'reservation_menu_code' => $this->code->generateRandomString(),
         ]);
 
         return redirect(url('reservation-menu'))->with('alert', [
@@ -155,14 +161,13 @@ class ReservationMenuController extends Controller
         $file = $reservationMenu->image;
 
         if ($request->hasFile('image')) {
-            // Jika ada gambar baru, hapus gambar lama
             if ($file && file_exists(storage_path('app/public/' . $file))) {
                 unlink(storage_path('app/public/' . $file));
             }
 
             $row_image = $request->file('image');
             $detail_image = [
-                'path' => 'reservation-menu/', // Remove /public/ as storeAs will handle this.
+                'path' => 'reservation-menu/',
                 'nama_file' => 'menu-' . rand(10, 10000) . '-' . strtotime(date('Y-m-d h:s')) . '.' . $row_image->getClientOriginalExtension(),
             ];
 

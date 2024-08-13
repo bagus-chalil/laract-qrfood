@@ -35,11 +35,31 @@ class GenerateNumberController extends Controller
             }
             $transaction_code = $code.$bulan.$thn.str_pad($nomorterakhir + 1, 4, '0', STR_PAD_LEFT);
 
-            // Check if the code already exists
             $exists = $model->where('transaction_code', $transaction_code)->first() != null;
         } while($exists);
 
         return $transaction_code;
 
+    }
+
+    function generateRandomString($length = 3) {
+        $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $model = new ReservationMenu();
+        $randomString = '';
+
+        do {
+            // Generate random string
+            $randomString = '';
+            for ($i = 0; $i < $length; $i++) {
+                $randomString .= $characters[rand(0, $charactersLength - 1)];
+            }
+
+            // Check if the string already exists in the database
+            $exists = $model->where('reservation_menu_code', $randomString)->exists();
+
+        } while ($exists);
+
+        return $randomString;
     }
 }
