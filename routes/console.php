@@ -16,20 +16,17 @@ Artisan::command('inspire', function () {
 Schedule::call(function () {
     Log::info("Cron Job started at ". now());
 
-    $user = User::where('id',312)->get();
+    $user = User::where('id',312)->first();
 
-    foreach ($user as $key => $value) {
-        try {
+    try {
 
-            if ($value) {
-                Mail::to("bagusakbar482@gmail.com")->send(new MailReferalCodeUser($value));
-            } else {
-                Log::warning("User not found with email: mohammad.bagus@kimiafarma.co.id");
-            }
-        } catch (Exception $e) {
-            Log::error("Failed to send referral code email: " . $e->getMessage());
+        if ($user) {
+            Mail::to("bagus.chalil@gmail.com")->send(new MailReferalCodeUser($user));
+        } else {
+            Log::warning("User not found with email: mohammad.bagus@kimiafarma.co.id");
         }
-
+    } catch (Exception $e) {
+        Log::error("Failed to send referral code email: " . $e->getMessage());
     }
     Log::info("Cron Job ended at ". now());
 })->everyMinute();

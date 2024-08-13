@@ -23,7 +23,24 @@ class OrderFoodController extends Controller
      */
     public function index($referal_code)
     {
-        $is_valid_referal = User::where('referal_code',$referal_code)->first();
+        // Mendapatkan waktu saat ini
+        $currentDateTime = now();
+        $currentHourMinute = $currentDateTime->format('H:i');
+        $currentDate = $currentDateTime->format('Y-m-d');
+
+        // Mendapatkan tanggal besok
+        $tomorrow = $currentDateTime->addDay()->format('Y-m-d');
+
+        // Cek apakah hari ini bukan besok atau waktu di luar jam akses yang diperbolehkan (08:15 hingga 23:55)
+        if ($currentDate !== $tomorrow || $currentHourMinute < '08:15' || $currentHourMinute > '23:55') {
+            return redirect()->route('landing')->with('alert', [
+                'type' => 'error',
+                'message' => 'Akses hanya diperbolehkan besok pada pukul 08:15 hingga 23:55.',
+            ]);
+        }
+
+        // Validasi kode referal
+        $is_valid_referal = User::where('referal_code', $referal_code)->first();
 
         if (empty($is_valid_referal)) {
             return redirect()->route('landing')->with('alert', [
@@ -32,15 +49,21 @@ class OrderFoodController extends Controller
             ]);
         }
 
+        // Mengambil data menu reservasi dan transaksi
         $reservationMenu = ReservationMenu::all();
-        $transactions = Orders::with('transaction','reservation_menu.category')->where('referal_code', $referal_code)->get();
+        $transactions = Orders::with('transaction', 'reservation_menu.category')
+            ->where('referal_code', $referal_code)
+            ->get();
 
-        return Inertia::render('User/Order/Order',[
+        // Render tampilan Inertia dengan data yang sesuai
+        return Inertia::render('User/Order/Order', [
             'transactions' => $transactions,
             'reservationMenu' => $reservationMenu,
             'kode_referal' => $referal_code,
         ]);
     }
+
+
 
     /**
      * Show the form for creating a new resource.
