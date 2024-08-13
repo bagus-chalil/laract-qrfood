@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { Html5Qrcode } from 'html5-qrcode';
 
 const QRCodeScanner = ({ auth }) => {
+
     useEffect(() => {
         const html5QrCode = new Html5Qrcode("reader");
 
@@ -27,7 +28,7 @@ const QRCodeScanner = ({ auth }) => {
                 if (stream) {
                     html5QrCode.start(
                         { facingMode: "environment" },
-                        { fps: 30, qrbox: { width: 500, height: 500 } },
+                        { fps: 10, qrbox: { width: 350, height: 350 } },
                         onScanSuccess,
                         onScanFailure
                     ).catch(error => {

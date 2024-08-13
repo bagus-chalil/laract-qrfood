@@ -3,7 +3,9 @@ import { Link } from '@inertiajs/react';
 import React from 'react';
 
 export default function QRShow({ user, transactions}) {
-    const qrCodeUrl = `/qrcode/${user.referal_code}`;
+    console.log(transactions);
+
+    const qrCodeUrl = `/qrcode/${transactions.transaction_code}`;
 
     return (
         <LandingLayout>
