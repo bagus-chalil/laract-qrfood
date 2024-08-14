@@ -45,7 +45,7 @@ export default function Order({ transactions, reservationMenu, kode_referal }) {
         const { value, checked } = event.target;
 
         if (item.quota >= item.limit) {
-            return; // Disable checkbox when quota is equal or greater than limit
+            return;
         }
 
         if (checked) {
@@ -212,7 +212,7 @@ export default function Order({ transactions, reservationMenu, kode_referal }) {
                                         {isSubmitEnabled && (
                                             <div className="text-center mt-6">
                                                 <PrimaryButton type="submit" disabled={processing || isLoading}>
-                                                    {processing || isLoading ? 'Submitting...' : 'Submit'}
+                                                    {processing || isLoading ? 'Sedang Memesan...' : 'Pesan'}
                                                 </PrimaryButton>
                                             </div>
                                         )}

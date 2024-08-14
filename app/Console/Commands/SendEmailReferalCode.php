@@ -37,11 +37,10 @@ class SendEmailReferalCode extends Command
 
         foreach ($user as $key => $value) {
             try {
-
                 if ($value) {
-                    Mail::to("bagus.chalil@gmail.com")->send(new MailReferalCodeUser($value));
+                    Mail::to($value->email)->send(new MailReferalCodeUser($value));
                 } else {
-                    Log::warning("User not found with email: mohammad.bagus@kimiafarma.co.id");
+                    Log::warning("User not found with email:".$value->email);
                 }
             } catch (Exception $e) {
                 Log::error("Failed to send referral code email: " . $e->getMessage());

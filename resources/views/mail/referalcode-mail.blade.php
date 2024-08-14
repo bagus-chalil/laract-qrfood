@@ -4,7 +4,7 @@
 <head>
 
     <meta charset="utf-8" />
-    <title>Email Pembayaran | PT Kimia Farma</title>
+    <title>Email Referal Kode Pemesanan Makanan | PT Kimia Farma</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
@@ -46,51 +46,37 @@
                                                         <table width="100%" cellpadding="0" cellspacing="0" style="font-family: 'Roboto', sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
                                                             <tr style="font-family: 'Roboto', sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
                                                                 <td class="content-block" style="font-family: 'Roboto', sans-serif; box-sizing: border-box; font-size: 24px; vertical-align: top; margin: 0; padding: 0 0 10px; text-align: center;" valign="top">
-                                                                    <h4 style="font-family: 'Roboto', sans-serif; margin-bottom: 10px; font-weight: 600;">Konfirmasi pembayaran tiket mudik <?php echo date('Y'); ?>, Berhasil!</h5>
+                                                                    <h4 style="font-family: 'Roboto', sans-serif; margin-bottom: 10px; font-weight: 600;">Referal kode untuk Pemesanan Makanan pada acara HUT KF -53</h5>
                                                                 </td>
                                                             </tr>
                                                             <tr style="font-family: 'Roboto', sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
                                                                 <td class="content-block" style="font-family: 'Roboto', sans-serif; box-sizing: border-box; font-size: 15px; vertical-align: top; margin: 0; padding: 0 0 12px;" valign="top">
-                                                                    <h5 style="font-family: 'Roboto', sans-serif; margin-bottom: 3px;">Kepada Peserta Mudik,</h5>
-                                                                    <p style="font-family: 'Roboto', sans-serif; margin-bottom: 8px; color: #878a99;">Terima kasih, pembayaran atas nama <b>asdasd</b> dengan Kode Virtual Account
-                                                                    <b>asdasd</b> sebesar <b>Rp. <u>Sudah Terkonfirmasi</u></b>. <br><br>
-                                                                    Daftar ulang peserta mudik akan dibuka mulai tanggal  27 - 28 Maret 2024 dan lokasi pendaftaran ulang sesuai dengan PIC Pendaftaran (asdasd) {{$user->referal_code}}.
+                                                                    <h5 style="font-family: 'Roboto', sans-serif; margin-bottom: 3px;">Halo Insan Kimia Farma! 🎉,</h5>
+                                                                    <p style="font-family: 'Roboto', sans-serif; margin-bottom: 8px; color: #878a99;">
+                                                                        Dalam rangka memeriahkan acara <b>Festival Rakyat di acara HUT KF ke-53</b>, kami mengundang kalian untuk menikmati berbagai hidangan lezat yang telah kami siapkan. Jangan lewatkan kesempatan ini untuk mencicipi hidangan spesial yang hanya tersedia untuk Anda!.
+                                                                        <br>
+                                                                        <br>
+                                                                        📱 Cara Pesan :
+                                                                        <br>
+                                                                        Silakan masuk ke aplikasi pemesanan melalui link di bawah ini dan pilih menu favorit Anda. Setiap orang dapat memesan:
+                                                                        <br><br><br>
+                                                                            1 Menu Makanan Berat
+                                                                        <br>
+                                                                            2 Menu Jajanan
+                                                                        <br>
+                                                                            1 Menu Minuman
+                                                                        <br><br><br>
+                                                                        Cepat pesan sekarang dan nikmati hidangan spesial di Festival Rakyat! 🎊
+                                                                        <br><br><br>
+                                                                        Pesan Menu Makanan di Sini: {{url('order',$user->referal_code)}}
                                                                     </p>
                                                                 </td>
                                                             </tr>
                                                             <tr style="font-family: 'Roboto', sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
-                                                                <td class="content-block" style="font-family: 'Roboto', sans-serif; box-sizing: border-box; font-size: 15px; vertical-align: top; margin: 0; padding: 0 0 18px;" valign="top">
-                                                                    <table style="width:100%;">
-                                                                        <tbody>
-                                                                            <tr style="text-align: left;">
-                                                                                <th style="padding: 5px;">
-                                                                                    <p style="color: #878a99; font-size: 13px; margin-bottom: 2px; font-weight: 400;">Kode Booking</p>
-                                                                                    <span>asdasd</span>
-                                                                                </th>
-                                                                                <th style="padding: 5px;">
-                                                                                    <p style="color: #878a99; font-size: 13px; margin-bottom: 2px; font-weight: 400;">Tanggal Pesanan</p>
-                                                                                    <span>asdasd WIB</span>
-                                                                                </th>
-                                                                                <th style="padding: 5px;">
-                                                                                    <p style="color: #878a99; font-size: 13px; margin-bottom: 2px; font-weight: 400;">Kota Tujuan</p>
-                                                                                    <span>asdasd</span>
-                                                                                </th>
-                                                                            </tr>
-                                                                        </tbody>
-                                                                    </table>
-                                                                </td>
-                                                            </tr>
-                                                            <tr style="font-family: 'Roboto', sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
-                                                                <td class="content-block" style="font-family: 'Roboto', sans-serif; box-sizing: border-box; font-size: 15px; vertical-align: top; margin: 0; padding: 0 0 12px;" valign="top">
-                                                                    <h6 style="font-family: 'Roboto', sans-serif; font-size: 15px; text-decoration-line: underline;margin-bottom: 15px;">Berikut detail pesanan anda:</h6>
-
-                                                                </td>
-                                                            </tr>
-                                                            <tr style="font-family: 'Roboto', sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
                                                                 <td class="content-block" style="font-family: 'Roboto', sans-serif; box-sizing: border-box; font-size: 15px; vertical-align: top; margin: 0; padding: 0 0 0px;" valign="top">
-                                                                    <p style="font-family: 'Roboto', sans-serif; margin-bottom: 8px; color: #878a99;">“Diwajibkan membawa berkas yang sudah di Upload di web mudik (Photo copy KTP, KK dan Bukti Pembayaran), serta berpakaian sopan dan rapi.”</p>
-                                                                    <h6 style="font-family: 'Roboto', sans-serif; font-size: 14px; margin-bottom: 0px; text-align: end;">Terima kasih,
-                                                                        Semoga sehat selalu.</h6>
+                                                                    <h6 style="font-family: 'Roboto', sans-serif; font-size: 14px; margin-bottom: 0px; text-align: end;">
+                                                                        Terima kasih,Semoga sehat selalu.
+                                                                    </h6>
                                                                 </td>
                                                             </tr>
                                                         </table>

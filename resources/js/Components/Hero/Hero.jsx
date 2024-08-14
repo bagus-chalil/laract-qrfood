@@ -58,8 +58,7 @@ const Hero = () => {
                 ke-53
               </h1>
               <p className="text-sm ">
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eaque
-                reiciendis inventore iste ratione ex alias quis magni at optio
+                Platform aplikasi pemesanan hidangan dalam acara HUT KF Ke 53.
               </p>
               {/* <div>
                 <button className="bg-gradient-to-r from-blue-600 to-blue-800 hover:scale-105 duration-200 text-white py-2 px-4 rounded-full">

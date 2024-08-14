@@ -23,21 +23,20 @@ class OrderFoodController extends Controller
      */
     public function index($referal_code)
     {
-        // Mendapatkan waktu saat ini
-        $currentDateTime = now();
-        $currentHourMinute = $currentDateTime->format('H:i');
-        $currentDate = $currentDateTime->format('Y-m-d');
+        // // Mendapatkan waktu saat ini dalam format tanggal dan jam
+        // $currentDate = now()->format('Y-m-d');
+        // $currentHour = now()->format('H');
 
-        // Mendapatkan tanggal besok
-        $tomorrow = $currentDateTime->addDay()->format('Y-m-d');
+        // // Tanggal dan jam akses yang diperbolehkan
+        // $allowedDate = '2024-08-14';
 
-        // Cek apakah hari ini bukan besok atau waktu di luar jam akses yang diperbolehkan (08:15 hingga 23:55)
-        if ($currentDate !== $tomorrow || $currentHourMinute < '08:15' || $currentHourMinute > '23:55') {
-            return redirect()->route('landing')->with('alert', [
-                'type' => 'error',
-                'message' => 'Akses hanya diperbolehkan besok pada pukul 08:15 hingga 23:55.',
-            ]);
-        }
+        // // Cek apakah hari ini adalah tanggal 14 Agustus 2024 dan waktu berada dalam rentang 09:00 hingga 24:00
+        // if ($currentDate !== $allowedDate || $currentHour < 9 || $currentHour >= 24) {
+        //     return redirect()->route('landing')->with('alert', [
+        //         'type' => 'error',
+        //         'message' => 'Akses hanya diperbolehkan pada tanggal 14 Agustus 2024 dari pukul 09:00 hingga 24:00.',
+        //     ]);
+        // }
 
         // Validasi kode referal
         $is_valid_referal = User::where('referal_code', $referal_code)->first();
@@ -62,6 +61,7 @@ class OrderFoodController extends Controller
             'kode_referal' => $referal_code,
         ]);
     }
+
 
 
 

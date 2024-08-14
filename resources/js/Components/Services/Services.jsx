@@ -23,7 +23,7 @@ const ServicesData = [
     img: Img2,
     name: "Minuman",
     description:
-      "Tersedia sebanyak 4 Minuman",
+      "Tersedia sebanyak 7 Minuman",
   },
 ];
 const Services = () => {
