@@ -1,7 +1,7 @@
-qqq11
 import TableCategory from './TableCategory';
 import { Head, usePage, useForm } from '@inertiajs/react';
 import { useState, useEffect } from 'react';
+import AdminLayout from '@/Layouts/AdminLayout';
 import ModalAddCategory from '../Category/ModalAddCategory';
 
 export default function ReservationMenu({ auth, category, sessions }) {

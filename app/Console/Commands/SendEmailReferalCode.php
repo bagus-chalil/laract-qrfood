@@ -33,7 +33,7 @@ class SendEmailReferalCode extends Command
     {
         Log::info("Cron Job started at ". now());
 
-        $user = User::where('email','asep@kimiafarma.co.id')->get();
+        $user = User::where('send_email',0)->get();
 
         foreach ($user as $key => $value) {
             try {
