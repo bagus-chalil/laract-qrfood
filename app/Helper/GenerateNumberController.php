@@ -31,8 +31,9 @@ class GenerateNumberController extends Controller
             if($lastcode == null) {
                 $nomorterakhir = "00";
             } else {
-                $nomorterakhir = substr($lastcode->booking_code, -4);
+                $nomorterakhir = substr($lastcode->transaction_code, -4);
             }
+
             $transaction_code = $code.$bulan.$thn.str_pad($nomorterakhir + 1, 4, '0', STR_PAD_LEFT);
 
             $exists = $model->where('transaction_code', $transaction_code)->first() != null;
