@@ -3,7 +3,6 @@ import { Link } from '@inertiajs/react';
 import React from 'react';
 
 export default function QRShow({ user, transactions}) {
-    console.log(transactions);
 
     const qrCodeUrl = `/qrcode/${transactions.transaction_code}`;
 
@@ -17,7 +16,7 @@ export default function QRShow({ user, transactions}) {
                         </div>
 
                         <div className="w-full mt-6 px-6 py-4 bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg text-center">
-                            <img src={qrCodeUrl} alt={`QR Code for ${user.referal_code}`} />
+                            <img src={qrCodeUrl} alt={`QR Code untuk ${user.referal_code}`} />
                             <div className="text-center max-w-[600px] mx-auto mb-8 mt-4">
                                 <p className="font-bold text-gray-900 dark:text-white">{user.name} -  {transactions.transaction_code}</p>
                             </div>

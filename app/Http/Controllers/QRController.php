@@ -21,8 +21,7 @@ class QRController extends Controller
     public function show($kode_referal,$id)
     {
         $transactions = Transaction::with('order.reservation_menu')->where('id',$id)->first();
-
-        $user = User::where('referal_code',$transactions->referal_code)->first();
+        $user = User::where('referal_code',$transactions->order->referal_code)->first();
 
         return Inertia::render('User/QR/QRShow',[
             'sessions' => session()->all(),

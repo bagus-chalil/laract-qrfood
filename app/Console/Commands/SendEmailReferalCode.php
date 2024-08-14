@@ -45,7 +45,6 @@ class SendEmailReferalCode extends Command
             } catch (Exception $e) {
                 Log::error("Failed to send referral code email: " . $e->getMessage());
             }
-
         }
         Log::info("Cron Job ended at ". now());
     }
