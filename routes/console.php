@@ -12,4 +12,22 @@ Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote')->hourly();
 
-Schedule::command('mail:referalcode')->everyMinute();
+Schedule::call(function () {
+    Log::info("Cron Job started at ". now());
+
+    $users = User::where('send_email',0)->get();
+
+    foreach ($users as $key => $user) {
+        try {
+            if ($user) {
+                Mail::to($value->email)->send(new MailReferalCodeUser($value));
+                $user = User::find($value->id)->update(['send_email'=>1]);
+            } else {
+                Log::warning("User not found with email: mohammad.bagus@kimiafarma.co.id");
+            }
+        } catch (Exception $e) {
+            Log::error("Failed to send referral code email: " . $e->getMessage());
+        }
+    }
+    Log::info("Cron Job ended at ". now());
+})->everyMinute();

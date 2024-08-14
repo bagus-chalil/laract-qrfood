@@ -34,11 +34,12 @@ class SendEmailReferalCode extends Command
         Log::info("Cron Job started at ". now());
 
         $user = User::where('send_email',0)->get();
-
+        dd($user);
         foreach ($user as $key => $value) {
             try {
                 if ($value) {
                     Mail::to($value->email)->send(new MailReferalCodeUser($value));
+                    $user = User::find($value->id)->update(['send_email'=>1]);
                 } else {
                     Log::warning("User not found with email:".$value->email);
                 }
