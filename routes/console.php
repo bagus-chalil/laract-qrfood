@@ -16,7 +16,6 @@ Schedule::call(function () {
     Log::info("Cron Job started at ". now());
 
     $users = User::where('send_email',0)->get();
-    dd($users);
 
     foreach ($users as $key => $user) {
         try {
