@@ -20,8 +20,8 @@ Schedule::call(function () {
     foreach ($users as $key => $user) {
         try {
             if ($user) {
-                Mail::to($value->email)->send(new MailReferalCodeUser($value));
-                $user = User::find($value->id)->update(['send_email'=>1]);
+                Mail::to($user->email)->send(new MailReferalCodeUser($user));
+                $user = User::find($user->id)->update(['send_email'=>1]);
             } else {
                 Log::warning("User not found with email: mohammad.bagus@kimiafarma.co.id");
             }
