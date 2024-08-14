@@ -56,9 +56,9 @@ const Navbar = () => {
                     <Link href="/login">Login</Link>
                 ) : (
                     auth.user.roles.includes("Admin") ? (
-                    <Link href="/dashboard">Pesan</Link>
+                    <Link href="/dashboard">Login</Link>
                     ) : (
-                    <Link href="/home">Pesan</Link>
+                    <Link href="/home">Login</Link>
                     )
                 )}
                 {/* <FaCartShopping className="text-xl text-white drop-shadow-sm cursor-pointer" /> */}
