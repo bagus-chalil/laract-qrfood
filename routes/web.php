@@ -1,6 +1,4 @@
 <?php
-
-use App\Http\Controllers\API\AutoGenerateReferal;
 use Inertia\Inertia;
 use App\Http\Controllers\Menu;
 use App\Models\ReservationMenu;
@@ -13,6 +11,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\OrderFoodController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\API\AutoGenerateReferal;
 use App\Http\Controllers\ReservationMenuController;
 
 Route::get('/welcome', function () {
