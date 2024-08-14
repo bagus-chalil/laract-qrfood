@@ -67,6 +67,12 @@
                                                                             1 Menu Minuman
                                                                         <br><br><br>
                                                                         Cepat pesan sekarang dan nikmati hidangan spesial di Festival Rakyat! 🎊
+                                                                        <br>
+                                                                        Waktu pemesanan :
+                                                                        <br>
+                                                                        Dimulai pukul 09.00 WIB | 14 Agustus 2024
+                                                                        <br>
+                                                                        Sampai dengan pukul 12.00 WIB | 15 Agustus 2024
                                                                         <br><br><br>
                                                                         Pesan Menu Makanan di Sini: {{url('order',$user->referal_code)}}
                                                                     </p>
