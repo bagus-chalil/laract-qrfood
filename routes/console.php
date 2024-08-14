@@ -16,12 +16,14 @@ Schedule::call(function () {
     Log::info("Cron Job started at ". now());
 
     $users = User::where('send_email',0)->get();
+    dd($users);
 
     foreach ($users as $key => $user) {
         try {
             if ($user) {
                 Mail::to($user->email)->send(new MailReferalCodeUser($user));
-                $user = User::find($user->id)->update(['send_email'=>1]);
+                $user1 = User::find($user->id);
+                $user1->update(['send_email'=>1]);
             } else {
                 Log::warning("User not found with email: mohammad.bagus@kimiafarma.co.id");
             }
