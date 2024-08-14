@@ -81,7 +81,7 @@
                                                             <tr style="font-family: 'Roboto', sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
                                                                 <td class="content-block" style="font-family: 'Roboto', sans-serif; box-sizing: border-box; font-size: 15px; vertical-align: top; margin: 0; padding: 0 0 0px;" valign="top">
                                                                     <h6 style="font-family: 'Roboto', sans-serif; font-size: 14px; margin-bottom: 0px; text-align: end;">
-                                                                        Terima kasih,Semoga sehat selalu.
+                                                                        Terima kasih, Semoga sehat selalu.
                                                                     </h6>
                                                                 </td>
                                                             </tr>
