@@ -74,7 +74,7 @@
                                                                         <br>
                                                                         Sampai dengan pukul 12.00 WIB | 15 Agustus 2024
                                                                         <br><br><br>
-                                                                        Pesan Menu Makanan di Sini: {{url('order',$user->referal_code)}}
+                                                                        Pesan Menu Makanan di Sini: https://fest-kf-53.kimiafarma.app/order/{{$user->referal_code}}
                                                                     </p>
                                                                 </td>
                                                             </tr>
