@@ -47,4 +47,5 @@ class AutoGenerateReferal extends Controller
 
         return response()->json(['message' => 'Referral codes generated successfully for users.']);
     }
+
 }

@@ -224,7 +224,7 @@ export default function Order({ transactions, reservationMenu, kode_referal }) {
                                 <div className="text-center max-w-[600px] mx-auto mb-8 mt-4">
                                     <h1 className="text-4xl font-bold text-gray-900 dark:text-white">Daftar Pesanan Anda</h1>
                                     <p className="text-sm text-gray-500 dark:text-gray-400">
-                                        Terima Kasih telah memesan makanan pada acara Tasyakuran HUT Kimi Farma ke-53, berikut Pesanan Anda :
+                                        Terima Kasih telah memesan makanan pada acara Tasyakuran HUT Kimia Farma ke-53, berikut Pesanan Anda :
                                     </p>
                                 </div>
                                 <div className="relative overflow-x-auto shadow-md sm:rounded-lg">

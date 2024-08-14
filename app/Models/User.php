@@ -8,10 +8,11 @@ use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laravel\Scout\Searchable;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, HasRoles;
+    use HasFactory, Notifiable, HasRoles, Searchable;
 
     /**
      * The attributes that are mass assignable.
@@ -46,5 +47,15 @@ class User extends Authenticatable
     public function modelhasroles()
     {
         return $this->hasOne(ModelHasRoles::class,'model_id','id');
+    }
+
+    public function toSearchableArray(): array
+    {
+        return [
+            'name' => $this->name,
+            'email' => $this->email,
+            'no_telephone' => $this->no_telephone,
+            'referal_code' => $this->referal_code,
+        ];
     }
 }

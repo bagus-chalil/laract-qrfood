@@ -58,6 +58,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         //Users
         Route::prefix('users/')->group(function () {
             Route::get('',[UsersController::class,'index']);
+            Route::post('insert',[UsersController::class,'store']);
+            Route::post('update/{id}',[UsersController::class,'update']);
         });
 
         //Category
@@ -86,6 +88,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         })->name('home');
 
         Route::get('/list-transaction', [TransactionController::class, 'index'])->name('transaction');
+        Route::get('/export-transaction', [TransactionController::class, 'export_data_transacions'])->name('export.transaction');
 
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

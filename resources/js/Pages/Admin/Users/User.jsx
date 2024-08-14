@@ -1,21 +1,22 @@
-import TableCategory from './TableCategory';
+import TableUsers from './TableUsers';
 import { Head, usePage, useForm } from '@inertiajs/react';
 import { useState, useEffect } from 'react';
 import AdminLayout from '@/Layouts/AdminLayout';
-import ModalAddCategory from '../Category/ModalAddCategory';
+import ModalAddDataUser from './ModalAddDataUsers';
 
-export default function Category({ auth, category, sessions }) {
+export default function User({ auth, dataUser, sessions }) {
     const [openModal, setOpenModal] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
 
     const { data, setData, post, processing, errors, reset } = useForm({
         name: '',
-        description: '',
+        email: '',
+        no_telephone: '',
     });
 
     const closeModal = () => {
         setOpenModal(false);
-        reset('name', 'description');
+        reset('name', 'email', 'no_telephone');
     };
 
     const appendAlert = () => {
@@ -25,7 +26,7 @@ export default function Category({ auth, category, sessions }) {
     const submit = (e) => {
         e.preventDefault();
 
-        post('/category/insert', {
+        post('/users/insert', {
             onSuccess: () => {
                 closeModal();
                 appendAlert();
@@ -44,7 +45,7 @@ export default function Category({ auth, category, sessions }) {
 
     return (
         <AdminLayout auth={auth}>
-            <Head title="Category" />
+            <Head title="Users" />
 
             {/* CONTENT */}
             <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -80,12 +81,12 @@ export default function Category({ auth, category, sessions }) {
                     </button>
                 </div>
 
-                <TableCategory category={category} />
+                <TableUsers dataUser={dataUser} />
             </div>
             {/* END CONTENT */}
 
             {/* MODAL */}
-            <ModalAddCategory
+            <ModalAddDataUser
                 open={openModal}
                 onClose={closeModal}
                 data={data}
