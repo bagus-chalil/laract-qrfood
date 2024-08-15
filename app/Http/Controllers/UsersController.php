@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use Inertia\Inertia;
+use Illuminate\Http\Request;
+use App\Models\ModelHasRoles;
+use App\Mail\MailReferalCodeUser;
+use App\Http\Requests\UsersRequest;
+use Illuminate\Support\Facades\Mail;
 use App\Helper\GenerateNumberController;
 use App\Http\Controllers\API\AutoGenerateReferal;
-use App\Http\Requests\UsersRequest;
-use App\Mail\MailReferalCodeUser;
-use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
-use Inertia\Inertia;
 
 class UsersController extends Controller
 {
@@ -39,6 +40,15 @@ class UsersController extends Controller
                 );
 
         $user = User::create($data);
+
+        if ($request->with_role == 1) {
+            $data_role = array(
+                'role_id' => 2,
+                'model_type' => 'App\Models\User',
+                'model_id' => $user->id,
+            );
+            ModelHasRoles::create($data_role);
+        }
 
         //Broadcast Email
         Mail::to($user->email)->send(new MailReferalCodeUser($user));

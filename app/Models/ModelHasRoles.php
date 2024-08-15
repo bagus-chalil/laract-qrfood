@@ -11,6 +11,7 @@ class ModelHasRoles extends Model
     use HasFactory;
     protected $guarded = [];
     protected $table = 'model_has_roles';
+    public $timestamps = false;
 
     public function roles()
     {

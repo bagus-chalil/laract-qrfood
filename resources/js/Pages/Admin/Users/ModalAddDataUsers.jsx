@@ -11,6 +11,10 @@ export default function ModalAddDataUsers({ open, onClose, data, setData, submit
         setData('no_telephone', value);
     };
 
+    const handleRoleChange = (e) => {
+        setData('with_role', e.target.checked ? 1 : 0);
+    };
+
     return (
         <Modal show={open} onClose={onClose}>
             <div className="w-full rounded-lg p-4">
@@ -50,7 +54,7 @@ export default function ModalAddDataUsers({ open, onClose, data, setData, submit
                             <InputError message={errors.email} className="mt-2" />
                         </div>
 
-                        <div className='mt-4 mb-8'>
+                        <div className='mt-4'>
                             <InputLabel htmlFor="no_telephone" value="No Telephone" />
 
                             <TextInput
@@ -64,10 +68,24 @@ export default function ModalAddDataUsers({ open, onClose, data, setData, submit
                                 onChange={handleTelephoneChange}
                             />
 
-                            <InputError message={errors.no_telephone} className="mt-2" />
+                            <InputError message={errors.no_telephone} className="mx-2" />
                         </div>
 
-                        <div className="flex items-center justify-end mt-4">
+                        <div className='mt-4 flex items-center'>
+                            <input
+                                id="with_role"
+                                name="with_role"
+                                type="checkbox"
+                                className="mt-0 mr-4"
+                                checked={data.with_role === 1}
+                                onChange={handleRoleChange}
+                            />
+
+                            <InputLabel htmlFor="with_role" value="Dengan Role?" className="mr-2" />
+                        </div>
+
+
+                        <div className="flex items-center justify-end mt-8">
                             <PrimaryButton className="ms-4" disabled={processing}>
                                 {processing && (
                                     <svg
