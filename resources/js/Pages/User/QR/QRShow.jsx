@@ -38,10 +38,17 @@ export default function QRShow({ user, transactions }) {
                     <div className="container mx-auto">
                         <div className="text-center max-w-[600px] mx-auto mb-8 mt-4">
                             <p className="text-4xl font-bold text-gray-900 dark:text-white">
-                                Menu {transactions.order.reservation_menu.name} telah diambil. Terima kasih
+                                Menu {transactions.order.reservation_menu.name} telah diambil.
+                            </p>
+                        </div>
+                        <div className="text-center max-w-[600px] mx-auto mb-8 mt-4">
+                            <p className='m-4'>QR Anda telah berhasil digunakan.Terima kasih</p>
+                            <p className="font-bold text-gray-900 dark:text-white">
+                                {user.name} - {transactions.transaction_code}
                             </p>
                         </div>
                     </div>
+
                 )}
                 <div className="container mx-auto">
                     <div className="w-full mt-6 px-6 py-4 bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg text-center">
