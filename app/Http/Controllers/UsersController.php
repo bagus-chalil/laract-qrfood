@@ -7,10 +7,10 @@ use Inertia\Inertia;
 use Illuminate\Http\Request;
 use App\Models\ModelHasRoles;
 use App\Mail\MailReferalCodeUser;
+use App\Helper\AutoGenerateReferal;
 use App\Http\Requests\UsersRequest;
 use Illuminate\Support\Facades\Mail;
 use App\Helper\GenerateNumberController;
-use App\Http\Controllers\API\AutoGenerateReferal;
 
 class UsersController extends Controller
 {

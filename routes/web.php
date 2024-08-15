@@ -2,6 +2,7 @@
 use Inertia\Inertia;
 use App\Http\Controllers\Menu;
 use App\Models\ReservationMenu;
+use App\Helper\AutoGenerateReferal;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\QRController;
 use Illuminate\Foundation\Application;
@@ -11,7 +12,6 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\OrderFoodController;
 use App\Http\Controllers\TransactionController;
-use App\Http\Controllers\API\AutoGenerateReferal;
 use App\Http\Controllers\ReservationMenuController;
 
 Route::get('/welcome', function () {
