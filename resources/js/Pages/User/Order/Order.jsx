@@ -22,16 +22,16 @@ export default function Order({ transactions, reservationMenu, kode_referal }) {
 
     useEffect(() => {
         // Determine the time range
-        const now = new Date();
-        const yesterdayMorning = new Date();
-        yesterdayMorning.setDate(now.getDate() - 1);
-        yesterdayMorning.setHours(9, 0, 0, 0);
+        // const now = new Date();
+        // const yesterdayMorning = new Date();
+        // yesterdayMorning.setDate(now.getDate() - 1);
+        // yesterdayMorning.setHours(9, 0, 0, 0);
 
         const todayNoon = new Date();
-        todayNoon.setHours(15, 0, 0, 0);
+        todayNoon.setHours(7, 0, 0, 0);
 
         // Check if current time is within the allowed time range
-        if (now >= yesterdayMorning && now <= todayNoon) {
+        if (now >= todayNoon) {
             setIsFormAvailable(true);
         } else {
             setIsFormAvailable(false);

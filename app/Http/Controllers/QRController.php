@@ -65,7 +65,7 @@ class QRController extends Controller
 
         return redirect(url('/qr/scanner'))->with('alert', [
             'type' => 'success',
-            'message' => 'QR berhasil discaned!',
+            'message' => 'QR '.$transactions->transaction_code.' berhasil discaned!',
         ]);
     }
 }

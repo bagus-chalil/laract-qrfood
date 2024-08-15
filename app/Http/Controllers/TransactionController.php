@@ -22,11 +22,11 @@ class TransactionController extends Controller
         if ($request->filled('search')) {
             $searchTerm = '%' . $request->search . '%';
 
-            $query->where('transaction_code', 'like', $searchTerm);
-                // ->orWhereHas('order.user', function (Builder $query) use ($searchTerm) {
-                //     $query->where('name', 'like', $searchTerm)
-                //             ->orWhere('email', 'like', $searchTerm);
-                // });
+            $query->where('transaction_code', 'like', $searchTerm)
+                ->orWhereHas('order.user', function (Builder $query) use ($searchTerm) {
+                    $query->where('name', 'like', $searchTerm)
+                            ->orWhere('email', 'like', $searchTerm);
+                });
         }
 
         // Continue with the other query modifications
@@ -59,11 +59,11 @@ class TransactionController extends Controller
         if ($request->filled('search')) {
             $searchTerm = '%' . $request->search . '%';
 
-            $query->where('transaction_code', 'like', $searchTerm);
-                // ->orWhereHas('order.user', function (Builder $query) use ($searchTerm) {
-                //     $query->where('name', 'like', $searchTerm)
-                //             ->orWhere('email', 'like', $searchTerm);
-                // });
+            $query->where('transaction_code', 'like', $searchTerm)
+                ->orWhereHas('order.user', function (Builder $query) use ($searchTerm) {
+                    $query->where('name', 'like', $searchTerm)
+                            ->orWhere('email', 'like', $searchTerm);
+                });
         }
 
         // Continue with the other query modifications
