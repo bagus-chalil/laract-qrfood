@@ -2,6 +2,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
 import { Html5QrcodeScanner } from 'html5-qrcode';
+import Alert from '@/Components/Alert';
 
 const QRCodeScanner = ({ auth }) => {
     const [scannerReady, setScannerReady] = useState(false);
