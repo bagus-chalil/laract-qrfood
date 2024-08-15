@@ -25,7 +25,9 @@ const QRCodeScanner = ({ auth }) => {
 
         const startScanning = async () => {
             try {
-                const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+                // Requesting camera access
+                const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
+
                 if (stream) {
                     html5QrCode.start(
                         { facingMode: "environment" },
@@ -33,12 +35,20 @@ const QRCodeScanner = ({ auth }) => {
                         onScanSuccess,
                         onScanFailure
                     ).catch(error => {
-                        console.error('Unable to start scanning', error);
+                        console.error('Unable to start scanning:', error);
+                        alert('Failed to start the QR code scanner. Please check if your camera is accessible.');
                     });
                 }
             } catch (error) {
-                console.error('Camera access not supported or failed:', error);
-                alert('Camera streaming not supported by this browser or device.');
+                // Detailed error handling
+                console.error('Camera access error or unsupported feature:', error);
+                if (error.name === 'NotAllowedError' || error.name === 'SecurityError') {
+                    alert('Camera access denied. Please enable camera permissions in your browser settings.');
+                } else if (error.name === 'NotFoundError') {
+                    alert('No camera found. Please ensure that your device has a working camera.');
+                } else {
+                    alert('An unexpected error occurred while accessing the camera.');
+                }
             }
         };
 
