@@ -22,7 +22,7 @@ export default function Order({ transactions, reservationMenu, kode_referal }) {
 
     useEffect(() => {
         // Determine the time range
-        // const now = new Date();
+        const now = new Date();
         // const yesterdayMorning = new Date();
         // yesterdayMorning.setDate(now.getDate() - 1);
         // yesterdayMorning.setHours(9, 0, 0, 0);
