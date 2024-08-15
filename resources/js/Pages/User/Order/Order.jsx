@@ -241,7 +241,7 @@ export default function Order({ transactions, reservationMenu, kode_referal }) {
                                     <div className="text-center max-w-[600px] mx-auto mb-8 mt-4">
                                         <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Form Tidak Tersedia</h1>
                                         <p className="text-sm text-gray-500 dark:text-gray-400">
-                                            Formulir ini hanya dapat diakses dari jam 09:00 pagi kemarin hingga jam 12:00 siang hari ini.
+                                            Formulir ini hanya dapat diakses dari jam 09:00 pagi kemarin hingga jam 15:00 siang hari ini.
                                         </p>
                                     </div>
                                 )
