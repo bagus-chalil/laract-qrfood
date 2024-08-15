@@ -26,9 +26,9 @@ export const SIDEBAR_ITEMS = [
         label: 'Reservation Menu',
     },
     {
-        key: 'qr',
-        path: '/qr/scanner',
+        key: 'listAllTransaction',
+        path: '/list-all-transaction',
         icon: <FaQrcode />,
-        label: 'QR Scanner',
+        label: 'All Transaction',
     },
   ];

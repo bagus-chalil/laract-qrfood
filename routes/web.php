@@ -80,6 +80,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::delete('destroy',[ReservationMenuController::class,'destroy']);
         });
 
+        Route::get('/list-all-transaction', [TransactionController::class, 'all_transaction'])->name('admin.transaction');
+        Route::get('/export-all-transaction', [TransactionController::class, 'export_all_data_transacions'])->name('export.alltransaction');
     });
 
     Route::group(['middleware' => ['role:User']], function () {

@@ -44,7 +44,7 @@ class QRController extends Controller
             if ($transactions->order->reservation_menu->pic_id != Auth::user()->id) {
                 return redirect(url('/qr/scanner'))->with('alert', [
                     'type' => 'error',
-                    'message' => 'QR bukan dari kategori Anda!',
+                    'message' => 'QR bukan dari booth Anda!',
                 ]);
             } else {
                 if ($transactions->is_active == 0) {
