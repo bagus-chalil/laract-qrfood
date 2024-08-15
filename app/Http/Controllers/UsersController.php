@@ -48,10 +48,10 @@ class UsersController extends Controller
                 'model_id' => $user->id,
             );
             ModelHasRoles::create($data_role);
+        }else{
+            //Broadcast Email
+            Mail::to($user->email)->send(new MailReferalCodeUser($user));
         }
-
-        //Broadcast Email
-        Mail::to($user->email)->send(new MailReferalCodeUser($user));
 
         return redirect(url('users'))->with('message', 'Data Berhasil ditambahkan !');
     }
