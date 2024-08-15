@@ -1,54 +1,41 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
-import { useEffect } from 'react';
-import { Html5Qrcode } from 'html5-qrcode';
-import Alert from '@/Components/Alert';
+import { useEffect, useState } from 'react';
+import { Html5QrcodeScanner } from 'html5-qrcode';
 
 const QRCodeScanner = ({ auth }) => {
+    const [scannerReady, setScannerReady] = useState(false);
 
     useEffect(() => {
-        const html5QrCode = new Html5Qrcode("reader");
-
-        const onScanSuccess = (decodedText, decodedResult) => {
-            document.getElementById('transaction').value = decodedText;
-            const transaction = decodedText;
-            html5QrCode.stop().then(() => {
-                window.location.href = `/qr/verif-transaction/${transaction}`;
-            }).catch(error => {
-                alert('Something went wrong');
-            });
-        };
-
-        const onScanFailure = (error) => {
-            console.warn(`Code scan error = ${error}`);
-        };
-
         const startScanning = async () => {
             try {
-                // Requesting camera access
-                const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
-
-                if (stream) {
-                    html5QrCode.start(
-                        { facingMode: "environment" },
+                // Wait for the DOM to be ready
+                if (scannerReady) {
+                    const html5QrCodeScanner = new Html5QrcodeScanner(
+                        "reader",
                         { fps: 10, qrbox: { width: 350, height: 350 } },
-                        onScanSuccess,
-                        onScanFailure
-                    ).catch(error => {
-                        console.error('Unable to start scanning:', error);
-                        alert('Failed to start the QR code scanner. Please check if your camera is accessible.');
-                    });
+                        /* verbose= */ false
+                    );
+
+                    const onScanSuccess = (decodedText, decodedResult) => {
+                        document.getElementById('transaction').value = decodedText;
+                        const transaction = decodedText;
+                        html5QrCodeScanner.clear().then(() => {
+                            window.location.href = `/qr/verif-transaction/${transaction}`;
+                        }).catch(error => {
+                            alert('Something went wrong');
+                        });
+                    };
+
+                    const onScanFailure = (error) => {
+                        console.warn(`Code scan error = ${error}`);
+                    };
+
+                    html5QrCodeScanner.render(onScanSuccess, onScanFailure);
                 }
             } catch (error) {
-                // Detailed error handling
-                console.error('Camera access error or unsupported feature:', error);
-                if (error.name === 'NotAllowedError' || error.name === 'SecurityError') {
-                    alert('Camera access denied. Please enable camera permissions in your browser settings.');
-                } else if (error.name === 'NotFoundError') {
-                    alert('No camera found. Please ensure that your device has a working camera.');
-                } else {
-                    alert('An unexpected error occurred while accessing the camera.');
-                }
+                console.error('Error initializing QR code scanner:', error);
+                alert('Camera streaming not supported by this browser or device.');
             }
         };
 
@@ -56,10 +43,17 @@ const QRCodeScanner = ({ auth }) => {
 
         // Clean up on unmount
         return () => {
-            html5QrCode.stop().catch(err => {
-                console.error('Unable to stop scanning', err);
-            });
+            if (scannerReady) {
+                html5QrCodeScanner.clear().catch(err => {
+                    console.error('Unable to stop scanning', err);
+                });
+            }
         };
+    }, [scannerReady]);
+
+    useEffect(() => {
+        // Delay initialization until the component has mounted
+        setScannerReady(true);
     }, []);
 
     return (
@@ -67,7 +61,6 @@ const QRCodeScanner = ({ auth }) => {
             user={auth.user}
             header={<h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">QR Scanner</h2>}
         >
-        <Alert />
         <Head title="QR Code Scanner" />
             <div className="container mx-auto px-4 py-8">
                 <div className="max-w-lg mx-auto bg-white rounded-lg shadow-md p-6">
@@ -89,6 +82,6 @@ const QRCodeScanner = ({ auth }) => {
             </div>
         </AuthenticatedLayout>
     );
-}
+};
 
 export default QRCodeScanner;
