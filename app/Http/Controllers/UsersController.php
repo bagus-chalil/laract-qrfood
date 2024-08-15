@@ -11,6 +11,7 @@ use App\Helper\AutoGenerateReferal;
 use App\Http\Requests\UsersRequest;
 use Illuminate\Support\Facades\Mail;
 use App\Helper\GenerateNumberController;
+use App\Helper\HttpClientWA;
 
 class UsersController extends Controller
 {
@@ -49,8 +50,33 @@ class UsersController extends Controller
             );
             ModelHasRoles::create($data_role);
         }else{
+            //Prepare Wa
+            $apiWa = new HttpClientWA();
+
+            $message = 'Halo Insan Kimia Farma! 🎉
+
+Dalam rangka memeriahkan acara Festival Rakyat di acara HUT KF ke-53, kami mengundang kalian untuk menikmati berbagai hidangan lezat yang telah kami siapkan. Jangan lewatkan kesempatan ini untuk mencicipi hidangan spesial yang hanya tersedia untuk Anda!
+
+📱 Cara Pesan :
+Silakan masuk ke aplikasi pemesanan melalui link di bawah ini dan pilih menu favorit Anda. Setiap orang dapat memesan:
+
+    1 Menu Makanan Berat
+    2 Menu Jajanan
+    1 Menu Minuman
+
+Cepat pesan sekarang dan nikmati hidangan spesial di Festival Rakyat! 🎊
+
+Pesan Menu Makanan di Sini:
+
+https://fest-kf-53.kimiafarma.app/order/'.$user->referal_code.'
+
+            ';
+
             //Broadcast Email
-            Mail::to($user->email)->send(new MailReferalCodeUser($user));
+            Mail::to($data['email'])->send(new MailReferalCodeUser($user));
+
+            //Broadcast Email
+            $apiWa->sendMessage($user->no_telephone,$message);
         }
 
         return redirect(url('users'))->with('message', 'Data Berhasil ditambahkan !');
