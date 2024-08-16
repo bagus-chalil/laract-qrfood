@@ -64,7 +64,6 @@ export default function ModalAddDataUsers({ open, onClose, data, setData, submit
                                 value={data.no_telephone}
                                 className="mt-1 block w-full"
                                 autoComplete="no_telephone"
-                                isFocused={true}
                                 onChange={handleTelephoneChange}
                             />
 
