@@ -59,21 +59,7 @@
                                                                         📱 Cara Pesan :
                                                                         <br>
                                                                         Silakan masuk ke aplikasi pemesanan melalui link di bawah ini dan pilih menu favorit Anda. Setiap orang dapat memesan:
-                                                                        <br><br><br>
-                                                                            1 Menu Makanan Berat
-                                                                        <br>
-                                                                            2 Menu Jajanan
-                                                                        <br>
-                                                                            1 Menu Minuman
-                                                                        <br><br><br>
-                                                                        Cepat pesan sekarang dan nikmati hidangan spesial di Festival Rakyat! 🎊
-                                                                        <br>
-                                                                        Waktu pemesanan :
-                                                                        <br>
-                                                                        Dimulai pukul 09.00 WIB | 14 Agustus 2024
-                                                                        <br>
-                                                                        Sampai dengan pukul 12.00 WIB | 15 Agustus 2024
-                                                                        <br><br><br>
+                                                                        <br><br>
                                                                         Pesan Menu Makanan di Sini: https://fest-kf-53.kimiafarma.app/order/{{$user->referal_code}}
                                                                     </p>
                                                                 </td>
