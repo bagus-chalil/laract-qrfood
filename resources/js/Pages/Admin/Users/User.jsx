@@ -13,11 +13,13 @@ export default function User({ auth, dataUser, sessions }) {
         email: '',
         no_telephone: '',
         with_role: 0,
+        with_email: 0,
+        with_wa: 0,
     });
 
     const closeModal = () => {
         setOpenModal(false);
-        reset('name', 'email', 'no_telephone', 'with_role');
+        reset('name', 'email', 'no_telephone', 'with_role', 'with_email', 'with_wa');
     };
 
     const appendAlert = () => {

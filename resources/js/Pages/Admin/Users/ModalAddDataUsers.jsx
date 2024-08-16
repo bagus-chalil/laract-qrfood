@@ -15,6 +15,14 @@ export default function ModalAddDataUsers({ open, onClose, data, setData, submit
         setData('with_role', e.target.checked ? 1 : 0);
     };
 
+    const handleEmail = (e) => {
+        setData('with_email', e.target.checked ? 1 : 0);
+    };
+
+    const handleWA = (e) => {
+        setData('with_wa', e.target.checked ? 1 : 0);
+    };
+
     return (
         <Modal show={open} onClose={onClose}>
             <div className="w-full rounded-lg p-4">
@@ -81,6 +89,28 @@ export default function ModalAddDataUsers({ open, onClose, data, setData, submit
                             />
 
                             <InputLabel htmlFor="with_role" value="Dengan Role?" className="mr-2" />
+
+                            <input
+                                id="with_email"
+                                name="with_email"
+                                type="checkbox"
+                                className="mt-0 mr-4"
+                                checked={data.with_email === 1}
+                                onChange={handleEmail}
+                            />
+
+                            <InputLabel htmlFor="with_email" value="Dengan Email?" className="mr-2" />
+
+                            <input
+                                id="with_wa"
+                                name="with_wa"
+                                type="checkbox"
+                                className="mt-0 mr-4"
+                                checked={data.with_wa === 1}
+                                onChange={handleWA}
+                            />
+
+                            <InputLabel htmlFor="with_wa" value="Dengan WA?" className="mr-2" />
                         </div>
 
 

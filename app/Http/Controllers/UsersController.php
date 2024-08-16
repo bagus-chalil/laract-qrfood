@@ -49,7 +49,13 @@ class UsersController extends Controller
                 'model_id' => $user->id,
             );
             ModelHasRoles::create($data_role);
-        }else{
+        }
+        if ($request->with_email == 1) {
+            //Broadcast Email
+            Mail::to($data['email'])->send(new MailReferalCodeUser($user));
+        }
+
+        if ($request->with_wa == 1) {
             //Prepare Wa
             $apiWa = new HttpClientWA();
 
@@ -71,9 +77,6 @@ Pesan Menu Makanan di Sini:
 https://fest-kf-53.kimiafarma.app/order/'.$user->referal_code.'
 
             ';
-
-            //Broadcast Email
-            Mail::to($data['email'])->send(new MailReferalCodeUser($user));
 
             //Broadcast Email
             $apiWa->sendMessage($user->no_telephone,$message);
