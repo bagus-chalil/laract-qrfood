@@ -28,7 +28,7 @@ class MailReferalCodeUser extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            from: new Address(env('MAIL_FROM_ADDRESS'), 'Admin Panitia HUT KF 53'),
+            from: new Address(env('MAIL_FROM_ADDRESS'), 'Admin Panitia HUT KF 54'),
             subject: 'Referal Code User',
         );
     }

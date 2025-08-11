@@ -39,7 +39,7 @@ export default function Order({ transactions, reservationMenu, kode_referal }) {
 
         setIsSubmitEnabled(
             selectedFood.length === 1 &&
-            selectedSnacks.length === 2 &&
+            selectedSnacks.length === 1 &&
             selectedDrink.length === 1
         );
     }, [selectedFood, selectedSnacks, selectedDrink]);
@@ -250,7 +250,7 @@ export default function Order({ transactions, reservationMenu, kode_referal }) {
                                     <div className="text-center max-w-[600px] mx-auto mb-8 mt-4">
                                         <h1 className="text-4xl font-bold text-gray-900 dark:text-white">Daftar Pesanan Anda</h1>
                                         <p className="text-sm text-gray-500 dark:text-gray-400">
-                                            Terima Kasih telah memesan makanan pada acara Tasyakuran HUT Kimia Farma ke-53, berikut Pesanan Anda :
+                                            Terima Kasih telah memesan makanan pada acara Tasyakuran HUT Kimia Farma ke-54, berikut Pesanan Anda :
                                         </p>
                                     </div>
                                     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -264,11 +264,11 @@ export default function Order({ transactions, reservationMenu, kode_referal }) {
                                                         <td className="px-6 py-4">
                                                             {item.reservation_menu.name}
                                                         </td>
-                                                        <td className="px-6 py-4">
+                                                        {/* <td className="px-6 py-4">
                                                             <Link href={`/QR/Show/${item.transaction.transaction_code}/${item.transaction.id}`}>
                                                                 QRCODE
                                                             </Link>
-                                                        </td>
+                                                        </td> */}
                                                     </tr>
                                                 ))}
                                             </tbody>

@@ -61,7 +61,7 @@ class UsersController extends Controller
 
             $message = 'Halo Insan Kimia Farma! 🎉
 
-Dalam rangka memeriahkan acara Festival Rakyat di acara HUT KF ke-53, kami mengundang kalian untuk menikmati berbagai hidangan lezat yang telah kami siapkan. Jangan lewatkan kesempatan ini untuk mencicipi hidangan spesial yang hanya tersedia untuk Anda!
+Dalam rangka memeriahkan acara Festival Rakyat di acara HUT KF ke-54, kami mengundang kalian untuk menikmati berbagai hidangan lezat yang telah kami siapkan. Jangan lewatkan kesempatan ini untuk mencicipi hidangan spesial yang hanya tersedia untuk Anda!
 
 📱 Cara Pesan :
 Silakan masuk ke aplikasi pemesanan melalui link di bawah ini dan pilih menu favorit Anda. Setiap orang dapat memesan:
@@ -74,7 +74,7 @@ Cepat pesan sekarang dan nikmati hidangan spesial di Festival Rakyat! 🎊
 
 Pesan Menu Makanan di Sini:
 
-https://fest-kf-53.kimiafarma.app/order/'.$user->referal_code.'
+https://fest-kf-54.kimiafarma.app/order/'.$user->referal_code.'
 
             ';
 
