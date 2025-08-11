@@ -55,10 +55,10 @@ const Hero = () => {
                 <span className="bg-clip-text text-transparent bg-gradient-to-b from-blue-600 to-blue-800">
                   Kimia Farma
                 </span>{" "}
-                ke-53
+                ke-54
               </h1>
               <p className="text-sm ">
-                Platform aplikasi pemesanan hidangan dalam acara HUT KF Ke 53.Silahkan scroll ke bawah untuk memilih dan melihat menu.
+                Platform aplikasi pemesanan hidangan dalam acara HUT KF Ke 54.Silahkan scroll ke bawah untuk memilih dan melihat menu.
               </p>
               {/* <div>
                 <button className="bg-gradient-to-r from-blue-600 to-blue-800 hover:scale-105 duration-200 text-white py-2 px-4 rounded-full">

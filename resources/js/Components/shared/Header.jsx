@@ -35,7 +35,7 @@ const Header = () => {
                                 onClick={toggleDropdown}
                             >
                                 <span className="sr-only">Open user menu</span>
-                                <img class="w-8 h-8 rounded-full" src="https://flowbite.com/docs/images/logo.svg" alt="Flowbite logo"></img>
+                                <img className="w-8 h-8 rounded-full" src="https://flowbite.com/docs/images/logo.svg" alt="Flowbite logo"></img>
                             </button>
                             {dropdownOpen && (
                                 <div className="absolute right-0 mt-2 w-48 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600">
