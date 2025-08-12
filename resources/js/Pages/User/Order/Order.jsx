@@ -1,3 +1,4 @@
+import Banner from '@/Components/Banner/Banner';
 import PrimaryButton from '@/Components/PrimaryButton';
 import LandingLayout from '@/Layouts/LandingLayout';
 import { Head, Link, router, useForm, usePage } from '@inertiajs/react';
@@ -98,13 +99,13 @@ export default function Order({ transactions, reservationMenu, kode_referal }) {
             referal_code: kode_referal,
         }, {
             onSuccess: () => {
-                setIsLoading(false);
+                router.visit(`/order/${kode_referal}`);
             },
             onError: () => {
                 console.log('Error occurred while submitting data');
-                setIsLoading(false);
             },
         });
+
     };
 
     const foodItems = reservationMenu.filter(item => item.category_id === 1);
@@ -113,6 +114,7 @@ export default function Order({ transactions, reservationMenu, kode_referal }) {
 
     return (
         <LandingLayout>
+            <Banner />
             <div data-aos="fade-up" data-aos-duration="300" className="py-10 bg-gray-100 dark:bg-gray-900">
                 <div className="container mx-auto">
                     <div className="w-full mt-6 px-6 py-4 bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg">

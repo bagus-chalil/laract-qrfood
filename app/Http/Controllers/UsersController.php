@@ -96,14 +96,10 @@ https://fest-kf-54.kimiafarma.app/order/'.$user->referal_code.'
         return redirect(url('category'))->with('message', 'Data Berhasil diperbarui !');
     }
 
-    public function guestRegistration(Request $request, $id)
+    public function guestRegistration()
     {
-        User::find($id)->update([
-            'name' => $request->name,
-            'email' => $request->email,
-            'no_telephone' => $request->no_telephone,
+        return Inertia::render('Admin/Users/GuestRegister',[
+            'sessions' => session()->all()
         ]);
-
-        return redirect(url('category'))->with('message', 'Data Berhasil diperbarui !');
     }
 }
