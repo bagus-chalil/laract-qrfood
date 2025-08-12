@@ -31,7 +31,7 @@ Route::prefix('order/')->group(function () {
     Route::get('{kode_referal}', [OrderFoodController::class, 'index'])->name('order');
     Route::post('insert', [OrderFoodController::class, 'store']);
 });
-Route::get('QR/Show/{kode_transaction}/{id}', [QRController::class, 'show']);
+Route::get('QR/Show/{kode_referal}', [QRController::class, 'show']);
 Route::get('/qrcode/{code}', [QRController::class, 'generateQRCode']);
 
 //Auto Referal

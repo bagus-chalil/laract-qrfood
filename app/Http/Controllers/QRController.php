@@ -18,10 +18,15 @@ class QRController extends Controller
         ]);
     }
 
-    public function show($kode_referal,$id)
+    public function show($kode_referal)
     {
-        $transactions = Transaction::with('order.reservation_menu')->where('id',$id)->first();
-        $user = User::where('referal_code',$transactions->order->referal_code)->first();
+        $user = User::where('referal_code',$kode_referal)->first();
+        $transactions = Transaction::with('order.reservation_menu')
+                        ->whereHas('order', function($q) use ($user) {
+                            $q->where('referal_code', $user->referal_code);
+                        })
+                        ->latest()
+                        ->get();
 
         return Inertia::render('User/QR/QRShow',[
             'sessions' => session()->all(),
@@ -36,36 +41,45 @@ class QRController extends Controller
         return response($qrCode)->header('Content-type', 'image/png');
     }
 
-    public function processQRTransaction($code)
+    public function processQRTransaction(Request $request, $code)
     {
-        $transactions = Transaction::with('order.reservation_menu')->where('transaction_code',$code)->first();
+        $user = auth()->user();
 
-        if ($transactions) {
-            if ($transactions->order->reservation_menu->pic_id != Auth::user()->id) {
-                return redirect(url('/qr/scanner'))->with('alert', [
-                    'type' => 'error',
-                    'message' => 'QR bukan dari booth Anda!',
-                ]);
-            } else {
-                if ($transactions->is_active == 0) {
-                    return redirect(url('/qr/scanner'))->with('alert', [
-                        'type' => 'error',
-                        'message' => 'QR transaksi sudah digunakan!',
-                    ]);
-                } else {
-                    $transactions->update(['is_active' => '0']);
-                }
-            }
-        } else {
-            return redirect(url('/qr/scanner'))->with('alert', [
-                'type' => 'error',
-                'message' => 'QR transaksi tidak valid!',
-            ]);
+        // Ambil maksimal 3 transaksi terbaru untuk user
+        $transactions = Transaction::with('order.reservation_menu')
+            ->whereHas('order', function($q) use ($user) {
+                $q->where('referal_code', $user->referal_code);
+            })
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        if ($transactions->isEmpty()) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Tidak ada transaksi ditemukan untuk QR ini.'
+            ], 404);
         }
 
-        return redirect(url('/qr/scanner'))->with('alert', [
-            'type' => 'success',
-            'message' => 'QR '.$transactions->transaction_code.' berhasil discaned!',
+        // Cek apakah ada transaksi yang sudah digunakan
+        foreach ($transactions as $transaction) {
+            if ($transaction->is_active == 0) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'QR ' . $transaction->order->reservation_menu->name . ' sudah digunakan!'
+                ], 400);
+            }
+        }
+
+        // Update semua jadi tidak aktif
+        foreach ($transactions as $transaction) {
+            $transaction->update(['is_active' => 0]);
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'QR ' . $code . ' berhasil discan!',
+            'menus' => $transactions->pluck('order.reservation_menu.name')
         ]);
     }
+
 }
