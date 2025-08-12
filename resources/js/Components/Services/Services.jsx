@@ -9,21 +9,21 @@ const ServicesData = [
     img: Img2,
     name: "Makanan",
     description:
-      "Tersedia sebanyak 5 Makanan Besar.",
+      "Tersedia sebanyak 3 Makanan Besar.",
   },
   {
     id: 2,
     img: Img2,
     name: "Snack",
     description:
-      "Tersedia sebanyak 8 Snack",
+      "Tersedia sebanyak 4 Snack",
   },
   {
     id: 3,
     img: Img2,
     name: "Minuman",
     description:
-      "Tersedia sebanyak 7 Minuman",
+      "Tersedia sebanyak 3 Minuman",
   },
 ];
 const Services = () => {

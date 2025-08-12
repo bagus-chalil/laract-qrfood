@@ -37,6 +37,9 @@ Route::get('/qrcode/{code}', [QRController::class, 'generateQRCode']);
 //Auto Referal
 Route::get('/auto-referal', [AutoGenerateReferal::class, 'generateReferalCodesForUsers']);
 
+//Register Gues
+Route::get('iaysdiuyaisdyuiayduijakjhdkjhkhqkjh/guest-registration',[UsersController::class,'guestRegistration']);
+
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/route', [RouteController::class, 'index'])->name('route');
