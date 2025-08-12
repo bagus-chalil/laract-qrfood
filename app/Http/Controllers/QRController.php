@@ -43,12 +43,11 @@ class QRController extends Controller
 
     public function processQRTransaction(Request $request, $code)
     {
-        $user = auth()->user();
-
+        $user = User::where('referal_code', $code)->first();
         // Ambil maksimal 3 transaksi terbaru untuk user
         $transactions = Transaction::with('order.reservation_menu')
-            ->whereHas('order', function($q) use ($user) {
-                $q->where('referal_code', $user->referal_code);
+            ->whereHas('order', function($q) use ($code) {
+                $q->where('referal_code', $code);
             })
             ->orderBy('created_at', 'desc')
             ->get();
@@ -72,12 +71,12 @@ class QRController extends Controller
 
         // Update semua jadi tidak aktif
         foreach ($transactions as $transaction) {
-            $transaction->update(['is_active' => 0]);
+            $transaction->update(['is_active' => '0']);
         }
 
         return response()->json([
             'status' => 'success',
-            'message' => 'QR ' . $code . ' berhasil discan!',
+            'message' => 'QR ' . $user->name . ' berhasil discan!',
             'menus' => $transactions->pluck('order.reservation_menu.name')
         ]);
     }

@@ -30,10 +30,10 @@ class TransactionController extends Controller
         }
 
         // Continue with the other query modifications
-        $query->with('order.reservation_menu', 'order.user')
-            ->whereHas('order.reservation_menu', function ($query) {
-                $query->where('pic_id', Auth::user()->id);
-            });
+        $query->with('order.reservation_menu', 'order.user');
+            // ->whereHas('order.reservation_menu', function ($query) {
+            //     $query->where('pic_id', Auth::user()->id);
+            // });
 
         // Paginate the results
         $transactions = $query->paginate($request->filter ?? 10)

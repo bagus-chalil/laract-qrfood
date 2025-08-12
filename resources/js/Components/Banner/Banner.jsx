@@ -75,10 +75,8 @@ const Banner = () => {
                         {activeTab === 'jalur-voucher' && (
                             <div>
                                 <ul className="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400" style={{ textAlign: 'justify' }}>
-                                    <li>Karyawan yang sudah mendaftar pada hari sebelumnya bisa langsung ke Booth makanan yang dipesan dengan menunjukan QR Code Menu Makanan kepada PIC Booth makanan.</li>
-                                    <li>PIC Booth Makanan akan Scan QR Code Pembeli dan menyerahkan makanan.</li>
-                                    <li>QR Code pada aplikasi pembeli akan otomatis hilang setelah di scan oleh PIC Booth Makanan.</li>
-                                    <li>Data Stok makanan yang diserahkan akan tercatat di database.</li>
+                                    <li> Pegawai yang sudah mendapatkan voucher fisik pada hari sebelumnya dapat langsung menuju booth makanan sesuai menu pilihannya.</li>
+                                    <li> Pegawai menyerahkan Voucher fisik kepada penjaga booth makanan sebelum mengambil makanan.</li>
                                 </ul>
 
                             </div>

@@ -16,9 +16,7 @@ class ExportDataTransactions implements FromView, ShouldAutoSize
     */
     public function view(): View
     {
-        $data['transactions'] = Transaction::with('order.reservation_menu', 'order.user')->whereHas('order.reservation_menu', function ($query) {
-                                    $query->where('pic_id', Auth::user()->id);
-                                })->get();
+        $data['transactions'] = Transaction::with('order.reservation_menu', 'order.user')->get();
 
         return view('export.data-transactions', [
             'transactions' => $data['transactions']

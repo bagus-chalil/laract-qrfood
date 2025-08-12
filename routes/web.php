@@ -44,7 +44,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     //QR
     Route::prefix('qr/')->group(function () {
         Route::get('scanner',[QRController::class,'index'])->name('qr.scanner');
-        Route::get('verif-transaction/{kode}',[QRController::class,'processQRTransaction']);
+        Route::post('verif-transaction/{kode}',[QRController::class,'processQRTransaction']);
     });
 
     Route::get('verif-transaction/{kode}',[QRController::class,'processQRTransaction']);
