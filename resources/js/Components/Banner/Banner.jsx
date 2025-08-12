@@ -85,11 +85,14 @@ const Banner = () => {
                         {activeTab === 'war-tiket' && (
                             <div>
                                 <ul className="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400" style={{ textAlign: 'justify' }}>
-                                    <li>Karyawan di Blast by Email atau WA dengan Kode Referal Unik (misal kode SAP) yg tidak bisa mengisi double.</li>
-                                    <li>Karyawan mengakses Web app untuk memilih Makanan di tanggal yang sudah ditentukan.</li>
-                                    <li>Data Makanan yg dipilih akan menampilkan stok dan Mengurangi.</li>
-                                    <li>Karyawan hanya bisa memilih 1 Makanan Besar, 2 makanan kecil dan 1 Minuman.</li>
-                                    <li>Setelah memesan akan langsung ke menu check out dan verifikasi, setelah itu akan Muncul 4 jenis menu pilihan yang jika di klik masing-masing link akan memunculkan QR Code yang nantinya akan di Scan di Booth makanan sesuai dengan gerobaknya.</li>
+                                    <li> Pegawai menerima kode referal unik melalui email (blast), sehingga tidak bisa mengisi lebih dari sekali.</li>
+                                    <li> Pegawai mengakses Web app untuk memilih menu makanan dari beberapa menu yang disediakan. </li>
+                                    <li> Pegawai hanya dapat memilih 1 menu utama, 1 menu snack, dan 1 menu penutup / minuman.</li>
+                                    <li> Setelah pegawai memilih, akan muncul tombol pesan.</li>
+                                    <li> Setelah memilih tombol pesan, Pegawai akan mendapatkan barcode pemesanan.</li>
+                                    <li> Pegawai menukarkan barcode tersebut menjadi Voucher fisik pada Hari Jum'at, Tanggal 15 Agustus 2025 Jam 13.00 - 15.00 di Kimia Farma Veteran Gedung C ruangan Supply Chain.</li>
+                                    <li> Tim penukar Voucher Fisik akan men-scan Barcode pegawai dan memberikan Voucher Fisik kepada Pegawai sesuai dengan pilihan menu yang sudah dipesan melalui Web App.</li>
+                                    <li> Voucher fisik tersebut dapat digunakan untuk menukarkan makanan pada saat acara HUT KF pada tanggal 19 Agustus 2025</li>
                                 </ul>
                             </div>
                         )}
@@ -97,12 +100,11 @@ const Banner = () => {
                         {activeTab === 'jalur-registrasi' && (
                             <div>
                               <ul className="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400" style={{ textAlign: 'justify' }}>
-                                  <li>Pendaftar (Karyawan Non Veteran dan Tamu Undangan) akan mendatangi Meja Admin untuk diberikan link pendaftaran via Email atau WA.</li>
-                                  <li>Admin akan memberikan link untuk registrasi.</li>
-                                  <li>Pendaftar akan membuka link dan mengisi registrasi profil.</li>
-                                  <li>Pendaftar hanya bisa memilih 1 Makanan Besar, 2 makanan kecil dan 1 Minuman.</li>
-                                  <li>Setelah memesan akan langsung ke menu check out dan verifikasi, setelah itu akan Muncul 4 jenis menu pilihan yang jika di klik masing-masing link akan memunculkan QR Code yang nantinya akan di Scan di Booth makanan sesuai dengan gerobaknya.</li>
-                                  <li>Pendaftar yang sudah mengisi pada hari H bisa langsung ke Booth makanan yang dipesan dengan menunjukan QR Code Menu Makanan kepada PIC Booth makanan.</li>
+                                  <li> Pegawai atau Tamu Undangan mendatangi tim penukaran voucher</li>
+                                  <li> Pegawai atau Tamu Undangan men-scan barcode yang disediakan</li>
+                                  <li> Pegawai atau Tamu Undangan mendaftarkan diri melalui Web App dan akan mendapatkan link pemesanan menu. </li>
+                                  <li> Pegawai atau Tamu Undangan memilih menu pesanan, lalu menunjukkan barcode pemesanan untuk ditukarkan menjadi voucher fisik. </li>
+                                  <li> Pegawai atau Tamu Undangan dipersilakan menuju booth makanan sesuai dengan menu pilihannya.</li>
                               </ul>
                             </div>
                         )}
