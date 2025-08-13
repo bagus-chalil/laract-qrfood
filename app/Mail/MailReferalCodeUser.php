@@ -29,7 +29,7 @@ class MailReferalCodeUser extends Mailable
     {
         return new Envelope(
             from: new Address(env('MAIL_FROM_ADDRESS'), 'Admin Panitia HUT KF 54'),
-            subject: 'Referal Code User',
+            subject: 'FESTIVAL RAKYAT HUT KF 54',
         );
     }
 
