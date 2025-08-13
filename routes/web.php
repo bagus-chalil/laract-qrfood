@@ -39,7 +39,11 @@ Route::get('/auto-referal', [AutoGenerateReferal::class, 'generateReferalCodesFo
 
 //Register Gues
 Route::get('iaysdiuyaisdyuiayduijakjhdkjhkhqkjh/guest-registration',[UsersController::class,'guestRegistration']);
+Route::post('/guest-registration', [UsersController::class, 'postGuestRegistration'])
+    ->name('guest-registration');
 
+Route::get('/guest/{referalCode}', [UsersController::class, 'viewGuestReferalCodeRegistration'])
+    ->name('view-referal-code-guest');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/route', [RouteController::class, 'index'])->name('route');

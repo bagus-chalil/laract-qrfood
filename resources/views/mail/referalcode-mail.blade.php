@@ -55,6 +55,23 @@
                                                                     <p style="font-family: 'Roboto', sans-serif; margin-bottom: 8px; color: #878a99;">
                                                                         Dalam rangka memeriahkan acara <b>Festival Rakyat di acara HUT KF ke-54</b>, kami mengundang kalian untuk menikmati berbagai hidangan lezat yang telah kami siapkan. Jangan lewatkan kesempatan ini untuk mencicipi hidangan spesial yang hanya tersedia untuk Anda!.
                                                                         <br>
+                                                                        <p style="font-family: 'Roboto', sans-serif; margin-bottom: 8px; color: #878a99;">
+                                                                            Kode referal Anda adalah:
+                                                                        </p>
+
+                                                                        <div style="display: inline-block; padding: 10px 20px; background-color: #f3f4f6; border: 1px solid #d1d5db; border-radius: 8px; font-family: monospace; font-size: 18px; font-weight: bold; letter-spacing: 1px; color: #111827;">
+                                                                            {{ $user->referal_code }}
+                                                                        </div>
+
+                                                                        <p style="margin-top: 20px; font-family: 'Roboto', sans-serif; color: #878a99;">
+                                                                            📱 Cara Pesan:
+                                                                            <br>
+                                                                            Silakan masuk ke aplikasi pemesanan melalui link berikut:
+                                                                            <br>
+                                                                            <a href="https://fest-kf-54.kimiafarma.app/order/{{ $user->referal_code }}" style="color: #2563eb; text-decoration: underline;">
+                                                                                https://fest-kf-54.kimiafarma.app/order/{{ $user->referal_code }}
+                                                                            </a>
+                                                                        </p>
                                                                         <br>
                                                                         📱 Cara Pesan :
                                                                         <br>

@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use Rules\Password;
 use App\Models\User;
 use Inertia\Inertia;
+use App\Helper\HttpClientWA;
 use Illuminate\Http\Request;
 use App\Models\ModelHasRoles;
 use App\Mail\MailReferalCodeUser;
 use App\Helper\AutoGenerateReferal;
 use App\Http\Requests\UsersRequest;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Helper\GenerateNumberController;
-use App\Helper\HttpClientWA;
 
 class UsersController extends Controller
 {
@@ -35,7 +37,7 @@ class UsersController extends Controller
                     'name' => $request->name,
                     'email' => $request->email,
                     'no_telephone' => $request->no_telephone,
-                    'password' => 'USERSFEST2024_ITFAMILY',
+                    'password' => 'USERSFEST2025_ITFAMILY',
                     'referal_code' => $this->auto_code_referal->generateRandomReferal(),
                     'send_email' => 1,
                 );
@@ -102,4 +104,39 @@ https://fest-kf-54.kimiafarma.app/order/'.$user->referal_code.'
             'sessions' => session()->all()
         ]);
     }
+
+    public function postGuestRegistration(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|lowercase|email|max:255|unique:' . User::class,
+            'no_telephone' => 'required|numeric',
+            'number_identity' => 'required|numeric',
+        ]);
+
+        // Normalisasi no telepon
+        if (substr($request->no_telephone, 0, 2) == '62') {
+            $no_telephone = $request->no_telephone;
+        } elseif (substr($request->no_telephone, 0, 1) == '0') {
+            $no_telephone = '62' . substr($request->no_telephone, 1);
+        } else {
+            $no_telephone = '62' . $request->no_telephone;
+        }
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'no_telephone' => $no_telephone,
+            'number_identity' => $request->number_identity,
+            'password' => Hash::make('USERSFEST2025_ITFAMILY'),
+            'referal_code' => $this->auto_code_referal->generateRandomReferal(),
+            'send_email' => "0",
+        ]);
+
+        // Hard redirect untuk hindari error 409 Inertia
+        return Inertia::render('Admin/Users/ViewGuestRegister', [
+            'referalCode' => $user->referal_code
+        ]);
+    }
+
 }
