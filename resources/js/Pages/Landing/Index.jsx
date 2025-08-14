@@ -7,6 +7,7 @@ import Footer from "@/Components/Footer/Footer";
 import Map from "@/Components/Map/Map";
 import Alert from "@/Components/Alert";
 import { Head } from '@inertiajs/react';
+import ReferalRedeem from '@/Components/ReferalRedeem/ReferalRedeem';
 
 const LandingIndex = () => {
     return (
@@ -15,6 +16,7 @@ const LandingIndex = () => {
             <Alert />
             <Navbar />
             <Hero />
+            <ReferalRedeem />
             <Services />
             <Banner />
             <Map />
