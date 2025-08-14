@@ -102,8 +102,9 @@ const ListReservationMenuUser = ({ auth, reservationMenu, category, sessions }) 
                             <th scope="col" className="px-6 py-3">Kategori</th>
                             <th scope="col" className="px-6 py-3">Deskripsi</th>
                             <th scope="col" className="px-6 py-3">Image</th>
-                            <th scope="col" className="px-6 py-3">Limit</th>
-                            <th scope="col" className="px-6 py-3">Quota</th>
+                            <th scope="col" className="px-6 py-3">Scan Kuota</th>
+                            <th scope="col" className="px-6 py-3">Sisa Kuota</th>
+                            <th scope="col" className="px-6 py-3">Limit Kuota</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -131,8 +132,9 @@ const ListReservationMenuUser = ({ auth, reservationMenu, category, sessions }) 
                                             <span>No Image Available</span>
                                         )}
                                     </td>
-                                    <td className="px-6 py-4">{item.limit}</td>
                                     <td className="px-6 py-4">{item.quota}</td>
+                                    <td className="px-6 py-4">{(item.limit) - (item.quota)}</td>
+                                    <td className="px-6 py-4">{item.limit}</td>
                                 </tr>
                             ))
                         )}
