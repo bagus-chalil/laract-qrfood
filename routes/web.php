@@ -37,8 +37,8 @@ Route::get('/qrcode/{code}', [QRController::class, 'generateQRCode']);
 //Auto Referal
 Route::get('/auto-referal', [AutoGenerateReferal::class, 'generateReferalCodesForUsers']);
 
-//Register Gues
-Route::get('iaysdiuyaisdyuiayduijakjhdkjhkhqkjh/guest-registration',[UsersController::class,'guestRegistration']);
+//Register Guest
+Route::get('/iaysdiuyaisdyuiayduijakjhdkjhkhqkjh/guest-registration',[UsersController::class,'guestRegistration']);
 Route::post('/guest-registration', [UsersController::class, 'postGuestRegistration'])
     ->name('guest-registration');
 
@@ -95,6 +95,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('home', function () {
             return Inertia::render('Dashboard');
         })->name('home');
+
+        Route::get('/reservation-menu/user/',[ReservationMenuController::class,'index'])->name('reservation-menu.user');
+        Route::get('/qr-register/show/',[QRController::class,'qrRegisterShow'])->name('qr-register.show');
+        Route::get('/generate/qr-register',[QRController::class,'generateQRCodeRegister'])->name('qr-register.generate');
 
         Route::get('/list-transaction', [TransactionController::class, 'index'])->name('transaction');
         Route::get('/export-transaction', [TransactionController::class, 'export_data_transacions'])->name('export.transaction');

@@ -6,6 +6,7 @@ use Inertia\Inertia;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\ReservationMenu;
+use Illuminate\Support\Facades\Auth;
 use App\Helper\GenerateNumberController;
 use Illuminate\Database\Eloquent\Builder;
 use App\Http\Requests\ReservationMenuRequest;
@@ -25,7 +26,13 @@ class ReservationMenuController extends Controller
 
         $category = Category::all();
 
-        return Inertia::render('Admin/ReservationMenu/ReservationMenu',[
+        if (Auth::user()->roles[0]['name'] == 'Admin') {
+            $renderPage = 'Admin/ReservationMenu/ReservationMenu';
+        }else if (Auth::user()->roles[0]['name'] == 'User') {
+            $renderPage = 'Admin/ReservationMenu/ListReservationMenuUser';
+        }
+
+        return Inertia::render($renderPage,[
             'reservationMenu' => $reservationMenu,
             'category' => $category,
             'sessions' => session()->all()

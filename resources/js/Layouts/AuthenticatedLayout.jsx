@@ -32,6 +32,12 @@ export default function Authenticated({ user, header, children }) {
                                 <NavLink href={route('transaction')} active={route().current('transaction')}>
                                     Transaksi
                                 </NavLink>
+                                <NavLink href={route('reservation-menu.user')} active={route().current('reservation-menu.user')}>
+                                    Food Menu
+                                </NavLink>
+                                <NavLink href={route('qr-register.show')} active={route().current('qr-register.show')}>
+                                    QR Register
+                                </NavLink>
                             </div>
                         </div>
 
@@ -108,6 +114,12 @@ export default function Authenticated({ user, header, children }) {
                         </ResponsiveNavLink>
                         <ResponsiveNavLink href={route('transaction')} active={route().current('transaction')}>
                             Transaksi
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink href={route('reservation-menu.user')} active={route().current('reservation-menu.user')}>
+                            Food Menu
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink href={route('qr-register.show')} active={route().current('qr-register.show')}>
+                            QR Register
                         </ResponsiveNavLink>
                     </div>
 

@@ -81,4 +81,16 @@ class QRController extends Controller
         ]);
     }
 
+    public function qrRegisterShow()
+    {
+        return Inertia::render('User/QR/QRShowRegister');
+    }
+
+    public function generateQRCodeRegister()
+    {
+        $link = 'https://fest-kf-54.kimiafarma.app//iaysdiuyaisdyuiayduijakjhdkjhkhqkjh/guest-registration';
+        $qrCode = QrCode::format('png')->size(200)->generate($link);
+        return response($qrCode)->header('Content-type', 'image/png');
+    }
+
 }

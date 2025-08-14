@@ -36,7 +36,7 @@ class TransactionController extends Controller
             // });
 
         // Paginate the results
-        $transactions = $query->paginate($request->filter ?? 10)
+        $transactions = $query->paginate($request->filter ?? 15)
                             ->appends('query', null)
                             ->withQueryString();
 
