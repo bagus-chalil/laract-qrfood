@@ -88,7 +88,7 @@ class QRController extends Controller
 
     public function generateQRCodeRegister()
     {
-        $link = 'https://fest-kf-54.kimiafarma.app//iaysdiuyaisdyuiayduijakjhdkjhkhqkjh/guest-registration';
+        $link = 'https://fest-kf-54.kimiafarma.app/iaysdiuyaisdyuiayduijakjhdkjhkhqkjh/guest-registration';
         $qrCode = QrCode::format('png')->size(200)->generate($link);
         return response($qrCode)->header('Content-type', 'image/png');
     }
