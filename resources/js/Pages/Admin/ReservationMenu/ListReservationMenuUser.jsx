@@ -42,7 +42,7 @@ const ListReservationMenuUser = ({ auth, reservationMenu, category, sessions }) 
   return (
     <AuthenticatedLayout
       user={auth.user}
-      header={<h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200">QR Scanner</h2>}
+      header={<h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200">List Reservasi Menu</h2>}
     >
       <Alert />
       <Head title="QR Code Scanner" />
